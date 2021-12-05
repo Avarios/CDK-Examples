@@ -5,7 +5,8 @@ My examples for CDK constructs
 ## Piwigo Infrastructure
 
 This examples demonstrates, how to setup a piwigo server:
-This is work in progress, it's done whene the Todo List is empty :D 
+This is work in progress ! 
+I will update the readme, when it is usable :D 
 
 What it does:
 - Setup VPC
