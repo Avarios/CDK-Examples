@@ -6,66 +6,22 @@ export class PiwigoInfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    let certificateArn = new CfnParameter(this,'certificateArn', {
-      type:"String",
-      description:"Insert the ARN for the SSL Certificate Load Balancer"
-    });
+    let certificateArn = this.getCertificateArn();
 
-    let vpc = new Vpc(this,'piwigovpc', {
-      cidr : '10.0.0.0/16',
-      natGateways: 1,
-      subnetConfiguration: [
-        {
-          name: 'piwigoSubnet',
-          subnetType: SubnetType.PRIVATE_WITH_NAT,
-          cidrMask: 24
-        },
-        {
-          name:'databaseSubnet',
-          subnetType:SubnetType.PRIVATE_ISOLATED,
-          cidrMask:28
-        },
-        {
-          name:'natSubnet',
-          subnetType:SubnetType.PUBLIC
-        }
-      ],
-      maxAzs:2
-    });
+    let vpc = this.createVpc();
 
-    let albSecurityGroup = new SecurityGroup(this,'alb-sg',{
-      vpc:vpc,
-      allowAllOutbound:true,
-    });
+    let albSecurityGroup = this.createSecurityGroup(vpc,'alb-sg',true);
     albSecurityGroup.addIngressRule(Peer.anyIpv4(),Port.tcp(443));
 
-    let piwigoSecurityGroup = new SecurityGroup(this,'piwigo-sg',{
-      vpc:vpc,
-      allowAllOutbound:true,
-    });
-
+    let piwigoSecurityGroup = this.createSecurityGroup(vpc,'piwigo-sg',true);
     piwigoSecurityGroup.addIngressRule(albSecurityGroup, Port.tcp(80));
 
-    let databaseSecurityGroup = new SecurityGroup(this,'db-sg',{
-      vpc:vpc,
-      allowAllOutbound:true,
-    });
-
+    let databaseSecurityGroup = this.createSecurityGroup(vpc,'db-sg',true);
     databaseSecurityGroup.addIngressRule(piwigoSecurityGroup,Port.tcp(3306));
 
+    let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
 
-
-    let loadbalancer = new ApplicationLoadBalancer(this,'piwigoAlb', {
-      vpc: vpc,
-      internetFacing:true,
-      securityGroup: albSecurityGroup
-    });
-
-    let targetGroup = new ApplicationTargetGroup(this,'piwigoTargetGroup',{
-      port:80,
-      protocol:ApplicationProtocol.HTTP,
-      vpc:vpc
-    });
+    let targetGroup = this.createAlbTargetGroup(vpc);
 
     loadbalancer.addListener('sslListener', {
       certificates:[
@@ -76,6 +32,59 @@ export class PiwigoInfraStack extends Stack {
       protocol:ApplicationProtocol.HTTPS,
       defaultTargetGroups:[targetGroup]
     })
+  }
 
+  private createAlbTargetGroup(vpc: Vpc) {
+    return new ApplicationTargetGroup(this, 'piwigoTargetGroup', {
+      port: 80,
+      protocol: ApplicationProtocol.HTTP,
+      vpc: vpc
+    });
+  }
+
+  private createApplicationLoadBalancer(vpc: Vpc, albSecurityGroup: SecurityGroup) {
+    return new ApplicationLoadBalancer(this, 'piwigoAlb', {
+      vpc: vpc,
+      internetFacing: true,
+      securityGroup: albSecurityGroup
+    });
+  }
+
+  private createSecurityGroup(vpc: Vpc, id: string, allowAllOutbound: boolean) {
+    return new SecurityGroup(this, id, {
+      vpc: vpc,
+      allowAllOutbound: allowAllOutbound,
+    });
+  }
+
+  private createVpc() {
+    return new Vpc(this, 'piwigovpc', {
+      cidr: '10.0.0.0/16',
+      natGateways: 1,
+      subnetConfiguration: [
+        {
+          name: 'piwigoSubnet',
+          subnetType: SubnetType.PRIVATE_WITH_NAT,
+          cidrMask: 24
+        },
+        {
+          name: 'databaseSubnet',
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+          cidrMask: 28
+        },
+        {
+          name: 'natSubnet',
+          subnetType: SubnetType.PUBLIC
+        }
+      ],
+      maxAzs: 2
+    });
+  }
+
+  private getCertificateArn() {
+    return new CfnParameter(this, 'certificateArn', {
+      type: "String",
+      description: "Insert the ARN for the SSL Certificate Load Balancer"
+    });
   }
 }
