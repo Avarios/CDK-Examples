@@ -1,0 +1,1155 @@
+{
+  "version": "15.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "PiwigoInfraStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "PiwigoInfraStack.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/PiwigoInfraStack/certificateArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "certificateArn",
+            "trace": [
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:9:26)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpc5604632A",
+            "trace": [
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:758:21)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet1Subnet9F9615D1",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet1RouteTableAssociation1724A7AF",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet1DefaultRouteD5FFC330",
+            "trace": [
+              "PrivateSubnet.addRoute (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1116:19)",
+              "NatGatewayProvider.configureSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:131:12)",
+              "NatGatewayProvider.configureNat (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:124:12)",
+              "Vpc.createNatGateways (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:887:14)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:817:14)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet2Subnet405884C3",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet2RouteTable72251398",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet2RouteTableAssociationED636E58",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:940:33",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcpiwigoSubnetSubnet2DefaultRouteC482AA61",
+            "trace": [
+              "PrivateSubnet.addRoute (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1116:19)",
+              "NatGatewayProvider.configureSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:131:12)",
+              "NatGatewayProvider.configureNat (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:124:12)",
+              "Vpc.createNatGateways (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:887:14)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:817:14)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet1Subnet58EC13A9",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet1RouteTable2D0C0378",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet1RouteTableAssociation3E9C44EB",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet2Subnet17BCBD97",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet2RouteTable20378A7D",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcdatabaseSubnetSubnet2RouteTableAssociationC28A5201",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PrivateSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1238:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:945:34",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:906:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1Subnet56F5089F",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1RouteTable6937AE37",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1RouteTableAssociationE7D42594",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1DefaultRoute01784ED5",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1084:19)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:811:22",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:810:46)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1EIPF063540A",
+            "trace": [
+              "PublicSubnet.addNatGateway (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1214:40)",
+              "NatGatewayProvider.configureNat (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:117:27)",
+              "Vpc.createNatGateways (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:887:14)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:817:14)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet1NATGateway4FFE965B",
+            "trace": [
+              "PublicSubnet.addNatGateway (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1212:17)",
+              "NatGatewayProvider.configureNat (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\nat.ts:117:27)",
+              "Vpc.createNatGateways (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:887:14)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:817:14)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet2Subnet865EC055",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1050:20)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1068:19)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet2RouteTableAssociation4D97A80D",
+            "trace": [
+              "new Subnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1074:5)",
+              "new PublicSubnet (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1206:5)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:935:32",
+              "Array.forEach (<anonymous>)",
+              "Vpc.createSubnetResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:917:28)",
+              "Vpc.createSubnets (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:912:12)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:792:10)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/natSubnetSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcnatSubnetSubnet2DefaultRouteE247DD92",
+            "trace": [
+              "PublicSubnet.addDefaultInternetRoute (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:1084:19)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:811:22",
+              "Array.forEach (<anonymous>)",
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:810:46)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcIGWC42ED489",
+            "trace": [
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:799:19)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigovpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigovpcVPCGWBFE76EBC",
+            "trace": [
+              "new Vpc (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\vpc.ts:805:19)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:14:15)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/alb-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "albsg40B076C4",
+            "trace": [
+              "new SecurityGroup (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:272:26)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:36:28)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigo-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigosg06B74E6D",
+            "trace": [
+              "new SecurityGroup (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:272:26)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:42:31)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigosgfromPiwigoInfraStackalbsg6AD28D7180106F1865",
+            "trace": [
+              "SecurityGroup.addIngressRule (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:67:7)",
+              "SecurityGroup.addIngressRule (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:289:13)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:47:25)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/db-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "dbsgCE6973BD",
+            "trace": [
+              "new SecurityGroup (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:272:26)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:49:33)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/db-sg/from PiwigoInfraStackpiwigosgC8BBC1E8:3306": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "dbsgfromPiwigoInfraStackpiwigosgC8BBC1E83306B3605369",
+            "trace": [
+              "SecurityGroup.addIngressRule (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:67:7)",
+              "SecurityGroup.addIngressRule (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-ec2\\lib\\security-group.ts:289:13)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:54:27)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigoAlb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigoAlb65C512F2",
+            "trace": [
+              "new BaseLoadBalancer (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\shared\\base-load-balancer.ts:138:22)",
+              "new ApplicationLoadBalancer (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\alb\\application-load-balancer.ts:56:5)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:58:24)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigoAlb/sslListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigoAlbsslListenerEEC5156F",
+            "trace": [
+              "new BaseListener (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\shared\\base-listener.ts:94:22)",
+              "new ApplicationListener (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\alb\\application-listener.ts:111:5)",
+              "ApplicationLoadBalancer.addListener (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\alb\\application-load-balancer.ts:77:22)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:70:18)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigoTargetGroup": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "When creating an empty TargetGroup, you should specify a 'targetType' (this warning may become an error in the future).",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\annotations.ts:57:25)",
+              "Annotations.addWarning (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\annotations.ts:19:10)",
+              "ApplicationTargetGroup.validate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\shared\\base-target-group.ts:202:32)",
+              "ApplicationTargetGroup.validate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\alb\\application-target-group.ts:243:23)",
+              "ApplicationTargetGroup.onValidate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\construct-compat.ts:80:17)",
+              "Node.validate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\constructs\\src\\construct.ts:333:54)",
+              "Node.validate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\constructs\\src\\construct.ts:330:45)",
+              "Node.validate (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\constructs\\src\\construct.ts:330:45)",
+              "validateTree (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:207:43)",
+              "Object.synthesize (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:28:5)",
+              "App.synth (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\stage.ts:94:23)",
+              "process.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\app.ts:64:45)",
+              "Object.onceWrapper (node:events:510:26)",
+              "process.emit (node:events:390:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\source-map-support\\source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/piwigoTargetGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "piwigoTargetGroupCA7FEBCE",
+            "trace": [
+              "new TargetGroupBase (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\shared\\base-target-group.ts:129:21)",
+              "new ApplicationTargetGroup (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\aws-elasticloadbalancingv2\\lib\\alb\\application-target-group.ts:67:5)",
+              "new PiwigoInfraStack (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\lib\\piwigo_infra-stack.ts:64:23)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\bin\\piwigo_infra.ts:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:198:14)",
+              "Object.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\ts-node\\src\\bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\metadata-resource.ts:22:24)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:166:5",
+              "visit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:231:5)",
+              "visit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:227:5)",
+              "injectMetadataResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:157:3)",
+              "Object.synthesize (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:18:3)",
+              "App.synth (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\stage.ts:94:23)",
+              "process.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\app.ts:64:45)",
+              "Object.onceWrapper (node:events:510:26)",
+              "process.emit (node:events:390:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\source-map-support\\source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/PiwigoInfraStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\metadata-resource.ts:31:27)",
+              "C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:166:5",
+              "visit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:231:5)",
+              "visit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:227:5)",
+              "injectMetadataResources (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:157:3)",
+              "Object.synthesize (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\private\\synthesis.ts:18:3)",
+              "App.synth (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\stage.ts:94:23)",
+              "process.<anonymous> (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\@aws-cdk\\core\\lib\\app.ts:64:45)",
+              "Object.onceWrapper (node:events:510:26)",
+              "process.emit (node:events:390:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (C:\\Users\\pawel\\Documents\\SOURCES\\CDK-Examples\\piwigo_infrastructure\\node_modules\\source-map-support\\source-map-support.js:516:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "PiwigoInfraStack"
+    }
+  }
+}

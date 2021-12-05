@@ -1,0 +1,957 @@
+{
+  "Parameters": {
+    "certificateArn": {
+      "Type": "String",
+      "Description": "Insert the ARN for the SSL Certificate Load Balancer"
+    }
+  },
+  "Resources": {
+    "piwigovpc5604632A": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/Resource"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet1Subnet9F9615D1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "piwigoSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/Subnet"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTable"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet1RouteTableAssociation1724A7AF": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet1Subnet9F9615D1"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTableAssociation"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet1DefaultRouteD5FFC330": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "piwigovpcnatSubnetSubnet1NATGateway4FFE965B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/DefaultRoute"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet2Subnet405884C3": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.1.0/24",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "piwigoSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/Subnet"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet2RouteTable72251398": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTable"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet2RouteTableAssociationED636E58": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet2RouteTable72251398"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet2Subnet405884C3"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTableAssociation"
+      }
+    },
+    "piwigovpcpiwigoSubnetSubnet2DefaultRouteC482AA61": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet2RouteTable72251398"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "piwigovpcnatSubnetSubnet1NATGateway4FFE965B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/DefaultRoute"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet1Subnet58EC13A9": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.0/28",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "databaseSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/Subnet"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet1RouteTable2D0C0378": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTable"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet1RouteTableAssociation3E9C44EB": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcdatabaseSubnetSubnet1RouteTable2D0C0378"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcdatabaseSubnetSubnet1Subnet58EC13A9"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTableAssociation"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet2Subnet17BCBD97": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.16/28",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "databaseSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/Subnet"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet2RouteTable20378A7D": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTable"
+      }
+    },
+    "piwigovpcdatabaseSubnetSubnet2RouteTableAssociationC28A5201": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcdatabaseSubnetSubnet2RouteTable20378A7D"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcdatabaseSubnetSubnet2Subnet17BCBD97"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTableAssociation"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1Subnet56F5089F": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.64.0/18",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "natSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/Subnet"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1RouteTable6937AE37": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTable"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1RouteTableAssociationE7D42594": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcnatSubnetSubnet1RouteTable6937AE37"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTableAssociation"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1DefaultRoute01784ED5": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcnatSubnetSubnet1RouteTable6937AE37"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "piwigovpcIGWC42ED489"
+        }
+      },
+      "DependsOn": [
+        "piwigovpcVPCGWBFE76EBC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/DefaultRoute"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1EIPF063540A": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/EIP"
+      }
+    },
+    "piwigovpcnatSubnetSubnet1NATGateway4FFE965B": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+        },
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "piwigovpcnatSubnetSubnet1EIPF063540A",
+            "AllocationId"
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/NATGateway"
+      }
+    },
+    "piwigovpcnatSubnetSubnet2Subnet865EC055": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.128.0/18",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "natSubnet"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/Subnet"
+      }
+    },
+    "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTable"
+      }
+    },
+    "piwigovpcnatSubnetSubnet2RouteTableAssociation4D97A80D": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC"
+        },
+        "SubnetId": {
+          "Ref": "piwigovpcnatSubnetSubnet2Subnet865EC055"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTableAssociation"
+      }
+    },
+    "piwigovpcnatSubnetSubnet2DefaultRouteE247DD92": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "piwigovpcIGWC42ED489"
+        }
+      },
+      "DependsOn": [
+        "piwigovpcVPCGWBFE76EBC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/DefaultRoute"
+      }
+    },
+    "piwigovpcIGWC42ED489": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PiwigoInfraStack/piwigovpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/IGW"
+      }
+    },
+    "piwigovpcVPCGWBFE76EBC": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        },
+        "InternetGatewayId": {
+          "Ref": "piwigovpcIGWC42ED489"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigovpc/VPCGW"
+      }
+    },
+    "albsg40B076C4": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "PiwigoInfraStack/alb-sg",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443
+          }
+        ],
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/alb-sg/Resource"
+      }
+    },
+    "piwigosg06B74E6D": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "PiwigoInfraStack/piwigo-sg",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigo-sg/Resource"
+      }
+    },
+    "piwigosgfromPiwigoInfraStackalbsg6AD28D7180106F1865": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "from PiwigoInfraStackalbsg6AD28D71:80",
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "piwigosg06B74E6D",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "albsg40B076C4",
+            "GroupId"
+          ]
+        },
+        "ToPort": 80
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:80"
+      }
+    },
+    "dbsgCE6973BD": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "PiwigoInfraStack/db-sg",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/db-sg/Resource"
+      }
+    },
+    "dbsgfromPiwigoInfraStackpiwigosgC8BBC1E83306B3605369": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "from PiwigoInfraStackpiwigosgC8BBC1E8:3306",
+        "FromPort": 3306,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "dbsgCE6973BD",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "piwigosg06B74E6D",
+            "GroupId"
+          ]
+        },
+        "ToPort": 3306
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/db-sg/from PiwigoInfraStackpiwigosgC8BBC1E8:3306"
+      }
+    },
+    "piwigoAlb65C512F2": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false"
+          }
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "albsg40B076C4",
+              "GroupId"
+            ]
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+          },
+          {
+            "Ref": "piwigovpcnatSubnetSubnet2Subnet865EC055"
+          }
+        ],
+        "Type": "application"
+      },
+      "DependsOn": [
+        "piwigovpcnatSubnetSubnet1DefaultRoute01784ED5",
+        "piwigovpcnatSubnetSubnet2DefaultRouteE247DD92"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoAlb/Resource"
+      }
+    },
+    "piwigoAlbsslListenerEEC5156F": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "piwigoTargetGroupCA7FEBCE"
+            },
+            "Type": "forward"
+          }
+        ],
+        "LoadBalancerArn": {
+          "Ref": "piwigoAlb65C512F2"
+        },
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Ref": "certificateArn"
+            }
+          }
+        ],
+        "Port": 443,
+        "Protocol": "HTTPS"
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoAlb/sslListener/Resource"
+      }
+    },
+    "piwigoTargetGroupCA7FEBCE": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          }
+        ],
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoTargetGroup/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31RwW7CMAz9Fu4hrNu08xiaENI0VQVxd1PTBYpTJU4RqvrvcztYu8tOtt97eXlOEp08PeuH2StcwtwUp0VrnEfdbhnMSa0OlIKHMzJ6lWFw0RtUK0eBfTTc8yN6ICEKy9ZRp3q7Fs2jbve16bl9ulKptw0wbmNOOBweu8xFxh3kFY74iC1DcMZCb/0rVmnMK2tGi/dN2pdP4LVccoFrP21IootgAkmS27Rk2fLrjMRqiyZ6y9e1d7EeIvwLbKj0GEKnsILA1lQOihwqIGOpbGTrZV1LuCHxh3BvAyePKEZ/5qnOBka6ae79hN+BL2WRe57J2HWdIlegPoZFk7zIl+pkdgzWzn0ktmfU2U/9Bl3hp1LuAQAA"
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

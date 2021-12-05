@@ -1,0 +1,1151 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.134.0"
+        }
+      },
+      "PiwigoInfraStack": {
+        "id": "PiwigoInfraStack",
+        "path": "PiwigoInfraStack",
+        "children": {
+          "certificateArn": {
+            "id": "certificateArn",
+            "path": "PiwigoInfraStack/certificateArn",
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CfnParameter",
+              "version": "1.134.0"
+            }
+          },
+          "piwigovpc": {
+            "id": "piwigovpc",
+            "path": "PiwigoInfraStack/piwigovpc",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/piwigovpc/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "instanceTenancy": "default",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "PiwigoInfraStack/piwigovpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnVPC",
+                  "version": "1.134.0"
+                }
+              },
+              "piwigoSubnetSubnet1": {
+                "id": "piwigoSubnetSubnet1",
+                "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.0.0/24",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            0,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "piwigoSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet1Subnet9F9615D1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet1RouteTable74348B71"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1NATGateway4FFE965B"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "piwigoSubnetSubnet2": {
+                "id": "piwigoSubnetSubnet2",
+                "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.1.0/24",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            1,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "piwigoSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet2RouteTable72251398"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet2Subnet405884C3"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "PiwigoInfraStack/piwigovpc/piwigoSubnetSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcpiwigoSubnetSubnet2RouteTable72251398"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1NATGateway4FFE965B"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "databaseSubnetSubnet1": {
+                "id": "databaseSubnetSubnet1",
+                "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.2.0/28",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            0,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "databaseSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Isolated"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcdatabaseSubnetSubnet1RouteTable2D0C0378"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcdatabaseSubnetSubnet1Subnet58EC13A9"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "databaseSubnetSubnet2": {
+                "id": "databaseSubnetSubnet2",
+                "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.2.16/28",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            1,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "databaseSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Isolated"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/databaseSubnetSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcdatabaseSubnetSubnet2RouteTable20378A7D"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcdatabaseSubnetSubnet2Subnet17BCBD97"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "natSubnetSubnet1": {
+                "id": "natSubnetSubnet1",
+                "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.64.0/18",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            0,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "natSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1RouteTable6937AE37"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1RouteTable6937AE37"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "piwigovpcIGWC42ED489"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnEIP",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "subnetId": {
+                          "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+                        },
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "piwigovpcnatSubnetSubnet1EIPF063540A",
+                            "AllocationId"
+                          ]
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "natSubnetSubnet2": {
+                "id": "natSubnetSubnet2",
+                "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "cidrBlock": "10.0.128.0/18",
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            1,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "natSubnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "piwigovpc5604632A"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC"
+                        },
+                        "subnetId": {
+                          "Ref": "piwigovpcnatSubnetSubnet2Subnet865EC055"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
+                      "version": "1.134.0"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "PiwigoInfraStack/piwigovpc/natSubnetSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "piwigovpcnatSubnetSubnet2RouteTable7FBBE6DC"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "piwigovpcIGWC42ED489"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-ec2.CfnRoute",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
+                  "version": "1.134.0"
+                }
+              },
+              "IGW": {
+                "id": "IGW",
+                "path": "PiwigoInfraStack/piwigovpc/IGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "PiwigoInfraStack/piwigovpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnInternetGateway",
+                  "version": "1.134.0"
+                }
+              },
+              "VPCGW": {
+                "id": "VPCGW",
+                "path": "PiwigoInfraStack/piwigovpc/VPCGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    },
+                    "internetGatewayId": {
+                      "Ref": "piwigovpcIGWC42ED489"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnVPCGatewayAttachment",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-ec2.Vpc",
+              "version": "1.134.0"
+            }
+          },
+          "alb-sg": {
+            "id": "alb-sg",
+            "path": "PiwigoInfraStack/alb-sg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/alb-sg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "PiwigoInfraStack/alb-sg",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 443,
+                        "toPort": 443,
+                        "description": "from 0.0.0.0/0:443"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
+              "version": "1.134.0"
+            }
+          },
+          "piwigo-sg": {
+            "id": "piwigo-sg",
+            "path": "PiwigoInfraStack/piwigo-sg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/piwigo-sg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "PiwigoInfraStack/piwigo-sg",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
+                  "version": "1.134.0"
+                }
+              },
+              "from PiwigoInfraStackalbsg6AD28D71:80": {
+                "id": "from PiwigoInfraStackalbsg6AD28D71:80",
+                "path": "PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:80",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "ipProtocol": "tcp",
+                    "description": "from PiwigoInfraStackalbsg6AD28D71:80",
+                    "fromPort": 80,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "piwigosg06B74E6D",
+                        "GroupId"
+                      ]
+                    },
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "albsg40B076C4",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 80
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroupIngress",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
+              "version": "1.134.0"
+            }
+          },
+          "db-sg": {
+            "id": "db-sg",
+            "path": "PiwigoInfraStack/db-sg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/db-sg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "PiwigoInfraStack/db-sg",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
+                  "version": "1.134.0"
+                }
+              },
+              "from PiwigoInfraStackpiwigosgC8BBC1E8:3306": {
+                "id": "from PiwigoInfraStackpiwigosgC8BBC1E8:3306",
+                "path": "PiwigoInfraStack/db-sg/from PiwigoInfraStackpiwigosgC8BBC1E8:3306",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "ipProtocol": "tcp",
+                    "description": "from PiwigoInfraStackpiwigosgC8BBC1E8:3306",
+                    "fromPort": 3306,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "dbsgCE6973BD",
+                        "GroupId"
+                      ]
+                    },
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "piwigosg06B74E6D",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 3306
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroupIngress",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
+              "version": "1.134.0"
+            }
+          },
+          "piwigoAlb": {
+            "id": "piwigoAlb",
+            "path": "PiwigoInfraStack/piwigoAlb",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/piwigoAlb/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "aws:cdk:cloudformation:props": {
+                    "loadBalancerAttributes": [
+                      {
+                        "key": "deletion_protection.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "scheme": "internet-facing",
+                    "securityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "albsg40B076C4",
+                          "GroupId"
+                        ]
+                      }
+                    ],
+                    "subnets": [
+                      {
+                        "Ref": "piwigovpcnatSubnetSubnet1Subnet56F5089F"
+                      },
+                      {
+                        "Ref": "piwigovpcnatSubnetSubnet2Subnet865EC055"
+                      }
+                    ],
+                    "type": "application"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-elasticloadbalancingv2.CfnLoadBalancer",
+                  "version": "1.134.0"
+                }
+              },
+              "sslListener": {
+                "id": "sslListener",
+                "path": "PiwigoInfraStack/piwigoAlb/sslListener",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PiwigoInfraStack/piwigoAlb/sslListener/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
+                      "aws:cdk:cloudformation:props": {
+                        "defaultActions": [
+                          {
+                            "type": "forward",
+                            "targetGroupArn": {
+                              "Ref": "piwigoTargetGroupCA7FEBCE"
+                            }
+                          }
+                        ],
+                        "loadBalancerArn": {
+                          "Ref": "piwigoAlb65C512F2"
+                        },
+                        "certificates": [
+                          {
+                            "certificateArn": {
+                              "Ref": "certificateArn"
+                            }
+                          }
+                        ],
+                        "port": 443,
+                        "protocol": "HTTPS"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-elasticloadbalancingv2.CfnListener",
+                      "version": "1.134.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationListener",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationLoadBalancer",
+              "version": "1.134.0"
+            }
+          },
+          "piwigoTargetGroup": {
+            "id": "piwigoTargetGroup",
+            "path": "PiwigoInfraStack/piwigoTargetGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/piwigoTargetGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "port": 80,
+                    "protocol": "HTTP",
+                    "targetGroupAttributes": [
+                      {
+                        "key": "stickiness.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-elasticloadbalancingv2.CfnTargetGroup",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationTargetGroup",
+              "version": "1.134.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "PiwigoInfraStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "PiwigoInfraStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.134.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "PiwigoInfraStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnCondition",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.134.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.134.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.134.0"
+    }
+  }
+}

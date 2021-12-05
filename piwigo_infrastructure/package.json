@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy-stack":"cdk deploy --parameters certificateArn='YOUR CERTIFICATE ARN HERE'"
   },
   "devDependencies": {
     "@aws-cdk/assertions": "1.134.0",
