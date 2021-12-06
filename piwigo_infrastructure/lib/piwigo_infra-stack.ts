@@ -1,6 +1,7 @@
-import { Stack, StackProps, Construct, CfnParameter } from '@aws-cdk/core';
-import { Vpc,SubnetType, SecurityGroup, Port, Peer, Instance } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { Stack, StackProps, Construct, CfnParameter, Size } from '@aws-cdk/core';
+import { Vpc,SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass, InstanceSize, MachineImage, AmazonLinuxStorage, Volume, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxCpuType } from '@aws-cdk/aws-ec2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
+import {  InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 
 export class PiwigoInfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -22,6 +23,11 @@ export class PiwigoInfraStack extends Stack {
     let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
 
     let targetGroup = this.createAlbTargetGroup(vpc);
+    let piwigoEc2 = this.createEc2Instance(vpc);
+    piwigoEc2.addSecurityGroup(piwigoSecurityGroup);
+
+    let albInstanceTarget = new InstanceTarget(piwigoEc2);
+    albInstanceTarget.attachToApplicationTargetGroup(targetGroup);
 
     loadbalancer.addListener('sslListener', {
       certificates:[
@@ -31,14 +37,32 @@ export class PiwigoInfraStack extends Stack {
       ],
       protocol:ApplicationProtocol.HTTPS,
       defaultTargetGroups:[targetGroup]
-    })
+    });
+  }
+
+  private createEc2Instance(vpc: Vpc) {
+    return new Instance(this, 'piwigoec2', {
+      instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.SMALL),
+      machineImage: MachineImage.latestAmazonLinux(),
+      vpc: vpc,
+      instanceName: 'piwigoweb',
+      blockDevices: [
+        {
+          deviceName: '/dev/sdh',
+          volume: BlockDeviceVolume.ebs(Size.gibibytes(200).toGibibytes(), {
+            volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
+          })
+        }
+      ]
+    });
   }
 
   private createAlbTargetGroup(vpc: Vpc) {
     return new ApplicationTargetGroup(this, 'piwigoTargetGroup', {
       port: 80,
       protocol: ApplicationProtocol.HTTP,
-      vpc: vpc
+      vpc: vpc,
+      targetType:TargetType.INSTANCE
     });
   }
 

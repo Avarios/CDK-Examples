@@ -3,6 +3,10 @@
     "certificateArn": {
       "Type": "String",
       "Description": "Insert the ARN for the SSL Certificate Load Balancer"
+    },
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
     }
   },
   "Resources": {
@@ -741,6 +745,7 @@
             "Value": "false"
           }
         ],
+        "TargetType": "instance",
         "VpcId": {
           "Ref": "piwigovpc5604632A"
         }
@@ -749,10 +754,145 @@
         "aws:cdk:path": "PiwigoInfraStack/piwigoTargetGroup/Resource"
       }
     },
+    "piwigoec2InstanceSecurityGroup44A5B4ED": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "PiwigoInfraStack/piwigoec2/InstanceSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "piwigoweb"
+          }
+        ],
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/InstanceSecurityGroup/Resource"
+      }
+    },
+    "piwigoec2InstanceRole913B2DD6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "ec2.",
+                      {
+                        "Ref": "AWS::URLSuffix"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "piwigoweb"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/InstanceRole/Resource"
+      }
+    },
+    "piwigoec2InstanceProfile0B04B740": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "piwigoec2InstanceRole913B2DD6"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/InstanceProfile"
+      }
+    },
+    "piwigoec207CAEE2F": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sdh",
+            "Ebs": {
+              "VolumeSize": 200,
+              "VolumeType": "gp2"
+            }
+          }
+        ],
+        "IamInstanceProfile": {
+          "Ref": "piwigoec2InstanceProfile0B04B740"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t3.small",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "piwigoec2InstanceSecurityGroup44A5B4ED",
+              "GroupId"
+            ]
+          },
+          {
+            "Fn::GetAtt": [
+              "piwigosg06B74E6D",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "piwigovpcpiwigoSubnetSubnet1Subnet9F9615D1"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "piwigoweb"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
+      },
+      "DependsOn": [
+        "piwigoec2InstanceRole913B2DD6"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31RwW7CMAz9Fu4hrNu08xiaENI0VQVxd1PTBYpTJU4RqvrvcztYu8tOtt97eXlOEp08PeuH2StcwtwUp0VrnEfdbhnMSa0OlIKHMzJ6lWFw0RtUK0eBfTTc8yN6ICEKy9ZRp3q7Fs2jbve16bl9ulKptw0wbmNOOBweu8xFxh3kFY74iC1DcMZCb/0rVmnMK2tGi/dN2pdP4LVccoFrP21IootgAkmS27Rk2fLrjMRqiyZ6y9e1d7EeIvwLbKj0GEKnsILA1lQOihwqIGOpbGTrZV1LuCHxh3BvAyePKEZ/5qnOBka6ae79hN+BL2WRe57J2HWdIlegPoZFk7zIl+pkdgzWzn0ktmfU2U/9Bl3hp1LuAQAA"
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31SwW7CMAz9Fu5ZGNu08xiaUKVpqgri7qaGGdqkShwQqvrvcwtdu8tOtt97dp6tLPTi+UU/zt7gEh5McZo3xnnUzYbBnNRqb1PwUCGjVxkGF71BtXI2sI+GO35E91aIgpicbVU3rkHzpJtdbTpul65U6ukMjJuYW+ybxyxzkXELeYkjPmLLEJwh6Eb/ilUa85LMOOIjSbvwBbyWRy5w7arEinURTCBxcq+WLFt+V2hZbdBET3xdexfr3sK/QGIPHkNQiVwC7G37IW8VlhCYTOmgyKEUjOzhLKdY1rU47tf4FO695+Sy0vynnuooMNq7Zsgn/Bb8QbYbTE7KVhFUusnc7aRDHFym3u2pxLZtlXUF6mOYnxev8hv0YnYMRA8+WqYKdXaLP91E0zEpAgAA"
       },
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/CDKMetadata/Default"
