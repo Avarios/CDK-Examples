@@ -1,7 +1,7 @@
 import { Stack, StackProps, Construct, CfnParameter, Size } from '@aws-cdk/core';
 import {
   Vpc, SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass,
-  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer
+  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer, Protocol
 } from '@aws-cdk/aws-ec2';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
@@ -14,13 +14,21 @@ export class PiwigoInfraStack extends Stack {
 
     // Security Group for the ALB
     // Allow traffic from anywhere to the ALB on Port 443
+    // Allow traffic from anywhere to the ALB on Port SSH
     let albSecurityGroup = this.createSecurityGroup(vpc, 'alb-sg', true,
-      [{ Peer: Peer.anyIpv4(), Port: Port.tcp(443) }]);
+      [
+        { Peer: Peer.anyIpv4(), Port: Port.tcp(443) },
+        { Peer: Peer.anyIpv4(), Port: Port.tcp(22) }
+      ]);
 
     // Security Group for the EC Instance
     // Allow Traffic from the ALB on Port 80
+    // Allow Traffic from the ALB on Port SSH
     let piwigoSecurityGroup = this.createSecurityGroup(vpc, 'piwigo-sg', true,
-      [{ Peer: albSecurityGroup, Port: Port.tcp(80) }]);
+      [
+        { Peer: albSecurityGroup, Port: Port.tcp(80) },
+        { Peer: albSecurityGroup, Port: Port.tcp(22) }
+      ]);
 
     // Security Group for the Database layer
     // Allow traffic on port 3306 from the EC2 Instance SG
@@ -60,7 +68,7 @@ export class PiwigoInfraStack extends Stack {
       ]
     });
 
-    if(defaultSecurityGroup){
+    if (defaultSecurityGroup) {
       instance.addSecurityGroup(defaultSecurityGroup);
     }
 
@@ -90,7 +98,7 @@ export class PiwigoInfraStack extends Stack {
   }
 
   private createSecurityGroup(
-    vpc: Vpc, id: string, allowAllOutbound: boolean, allowedSecurityGroups?: [{ Peer: IPeer, Port: Port }]): SecurityGroup {
+    vpc: Vpc, id: string, allowAllOutbound: boolean, allowedSecurityGroups?: { Peer: IPeer, Port: Port }[]): SecurityGroup {
     let securityGroup = new SecurityGroup(this, id, {
       vpc: vpc,
       allowAllOutbound: allowAllOutbound,
