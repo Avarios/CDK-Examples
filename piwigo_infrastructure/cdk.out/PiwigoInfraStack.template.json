@@ -564,6 +564,13 @@
             "FromPort": 443,
             "IpProtocol": "tcp",
             "ToPort": 443
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:22",
+            "FromPort": 22,
+            "IpProtocol": "tcp",
+            "ToPort": 22
           }
         ],
         "VpcId": {
@@ -615,6 +622,30 @@
       },
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:80"
+      }
+    },
+    "piwigosgfromPiwigoInfraStackalbsg6AD28D7122AAFF5A15": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "from PiwigoInfraStackalbsg6AD28D71:22",
+        "FromPort": 22,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "piwigosg06B74E6D",
+            "GroupId"
+          ]
+        },
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "albsg40B076C4",
+            "GroupId"
+          ]
+        },
+        "ToPort": 22
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:22"
       }
     },
     "dbsgCE6973BD": {
@@ -724,33 +755,6 @@
       },
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/piwigoAlb/sslListener/Resource"
-      }
-    },
-    "piwigoTargetGroupCA7FEBCE": {
-      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-      "Properties": {
-        "Port": 80,
-        "Protocol": "HTTP",
-        "TargetGroupAttributes": [
-          {
-            "Key": "stickiness.enabled",
-            "Value": "false"
-          }
-        ],
-        "Targets": [
-          {
-            "Id": {
-              "Ref": "piwigoec207CAEE2F"
-            }
-          }
-        ],
-        "TargetType": "instance",
-        "VpcId": {
-          "Ref": "piwigovpc5604632A"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "PiwigoInfraStack/piwigoTargetGroup/Resource"
       }
     },
     "piwigoec2InstanceSecurityGroup44A5B4ED": {
@@ -878,7 +882,7 @@
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras install nginx1"
+          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras enable nginx1\nsudo yum clean metadata\nsudo yum -y install nginx\nnginx -v"
         }
       },
       "DependsOn": [
@@ -886,6 +890,33 @@
       ],
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/piwigoec2/Resource"
+      }
+    },
+    "piwigoTargetGroupCA7FEBCE": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false"
+          }
+        ],
+        "Targets": [
+          {
+            "Id": {
+              "Ref": "piwigoec207CAEE2F"
+            }
+          }
+        ],
+        "TargetType": "instance",
+        "VpcId": {
+          "Ref": "piwigovpc5604632A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoTargetGroup/Resource"
       }
     },
     "CDKMetadata": {

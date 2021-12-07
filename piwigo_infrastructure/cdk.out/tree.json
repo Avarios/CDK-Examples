@@ -834,6 +834,13 @@
                         "fromPort": 443,
                         "toPort": 443,
                         "description": "from 0.0.0.0/0:443"
+                      },
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 22,
+                        "toPort": 22,
+                        "description": "from 0.0.0.0/0:22"
                       }
                     ],
                     "vpcId": {
@@ -902,6 +909,35 @@
                       ]
                     },
                     "toPort": 80
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroupIngress",
+                  "version": "1.134.0"
+                }
+              },
+              "from PiwigoInfraStackalbsg6AD28D71:22": {
+                "id": "from PiwigoInfraStackalbsg6AD28D71:22",
+                "path": "PiwigoInfraStack/piwigo-sg/from PiwigoInfraStackalbsg6AD28D71:22",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "ipProtocol": "tcp",
+                    "description": "from PiwigoInfraStackalbsg6AD28D71:22",
+                    "fromPort": 22,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "piwigosg06B74E6D",
+                        "GroupId"
+                      ]
+                    },
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "albsg40B076C4",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 22
                   }
                 },
                 "constructInfo": {
@@ -1067,48 +1103,6 @@
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationLoadBalancer",
-              "version": "1.134.0"
-            }
-          },
-          "piwigoTargetGroup": {
-            "id": "piwigoTargetGroup",
-            "path": "PiwigoInfraStack/piwigoTargetGroup",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "PiwigoInfraStack/piwigoTargetGroup/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-                  "aws:cdk:cloudformation:props": {
-                    "port": 80,
-                    "protocol": "HTTP",
-                    "targetGroupAttributes": [
-                      {
-                        "key": "stickiness.enabled",
-                        "value": "false"
-                      }
-                    ],
-                    "targets": [
-                      {
-                        "id": {
-                          "Ref": "piwigoec207CAEE2F"
-                        }
-                      }
-                    ],
-                    "targetType": "instance",
-                    "vpcId": {
-                      "Ref": "piwigovpc5604632A"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "@aws-cdk/aws-elasticloadbalancingv2.CfnTargetGroup",
-                  "version": "1.134.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationTargetGroup",
               "version": "1.134.0"
             }
           },
@@ -1279,7 +1273,7 @@
                       }
                     ],
                     "userData": {
-                      "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras install nginx1"
+                      "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras enable nginx1\nsudo yum clean metadata\nsudo yum -y install nginx\nnginx -v"
                     }
                   }
                 },
@@ -1307,6 +1301,48 @@
             "path": "PiwigoInfraStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118",
             "constructInfo": {
               "fqn": "@aws-cdk/core.Resource",
+              "version": "1.134.0"
+            }
+          },
+          "piwigoTargetGroup": {
+            "id": "piwigoTargetGroup",
+            "path": "PiwigoInfraStack/piwigoTargetGroup",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PiwigoInfraStack/piwigoTargetGroup/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "port": 80,
+                    "protocol": "HTTP",
+                    "targetGroupAttributes": [
+                      {
+                        "key": "stickiness.enabled",
+                        "value": "false"
+                      }
+                    ],
+                    "targets": [
+                      {
+                        "id": {
+                          "Ref": "piwigoec207CAEE2F"
+                        }
+                      }
+                    ],
+                    "targetType": "instance",
+                    "vpcId": {
+                      "Ref": "piwigovpc5604632A"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-elasticloadbalancingv2.CfnTargetGroup",
+                  "version": "1.134.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-elasticloadbalancingv2.ApplicationTargetGroup",
               "version": "1.134.0"
             }
           },

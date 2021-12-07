@@ -37,7 +37,8 @@ export class PiwigoInfraStack extends Stack {
 
     let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
     let piwigoEc2 = this.createEc2Instance(vpc, piwigoSecurityGroup);
-    piwigoEc2.userData.addCommands('sudo amazon-linux-extras install nginx1');
+    this.configureUserdata(piwigoEc2);
+
     let targetGroup = this.createAlbTargetGroup(vpc, new InstanceTarget(piwigoEc2));
 
     loadbalancer.addListener('sslListener', {
@@ -50,6 +51,30 @@ export class PiwigoInfraStack extends Stack {
       protocol: ApplicationProtocol.HTTPS,
       defaultTargetGroups: [targetGroup]
     });
+  }
+
+  /* This method adds all relevant linux commands to install
+     nginx
+     php8
+     and to modify all needed files to let nginx use php
+  */
+  private configureUserdata(instance: Instance) {
+    instance.userData.addCommands('sudo amazon-linux-extras enable nginx1 php8.0');
+    instance.userData.addCommands('sudo yum clean metadata');
+    instance.userData.addCommands('sudo yum -y install nginx php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}');
+    instance.userData.addCommands('sudo systemctl enable --now nginx');
+    instance.userData.addCommands('nginx -v');
+    instance.userData.addCommands("sudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf");
+    instance.userData.addCommands("sudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf");
+    instance.userData.addCommands("sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf");
+    instance.userData.addCommands("sudo systemctl enable php-fpm");
+    instance.userData.addCommands("sudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini");
+    instance.userData.addCommands("sudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini");
+    instance.userData.addCommands("sudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini");
+    instance.userData.addCommands("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini");
+    instance.userData.addCommands("sudo systemctl restart php-fpm");
+    instance.userData.addCommands("sudo systemctl restart nginx");
+
   }
 
   private createEc2Instance(vpc: Vpc, defaultSecurityGroup?: SecurityGroup): Instance {
