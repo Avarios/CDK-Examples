@@ -61,17 +61,24 @@ export class PiwigoInfraStack extends Stack {
   private configureUserdata(instance: Instance) {
     instance.userData.addCommands('sudo amazon-linux-extras enable nginx1 php8.0');
     instance.userData.addCommands('sudo yum clean metadata');
-    instance.userData.addCommands('sudo yum -y install nginx php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}');
+    instance.userData.addCommands('sudo yum -y install nginx');
+    instance.userData.addCommands('sudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}');
     instance.userData.addCommands('sudo systemctl enable --now nginx');
     instance.userData.addCommands('nginx -v');
+    instance.userData.addCommands("sudo systemctl enable php-fpm");
     instance.userData.addCommands("sudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf");
     instance.userData.addCommands("sudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf");
-    instance.userData.addCommands("sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf");
-    instance.userData.addCommands("sudo systemctl enable php-fpm");
+    instance.userData.addCommands("sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf"); 
     instance.userData.addCommands("sudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini");
     instance.userData.addCommands("sudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini");
     instance.userData.addCommands("sudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini");
     instance.userData.addCommands("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini");
+    instance.userData.addCommands("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini");
+    instance.userData.addCommands("sudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infrastructure/res/nginx.conf_ -P /etc/nginx/");
+    instance.userData.addCommands("sudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf");
+    instance.userData.addCommands("sudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/");
+    instance.userData.addCommands("sudo mv /usr/share/nginx/html/dlcounter.php\?code\=netinstall /usr/share/nginx/html/netinstall.php");
+    instance.userData.addCommands("sudo chmod 777 /usr/share/nginx/html/");
     instance.userData.addCommands("sudo systemctl restart php-fpm");
     instance.userData.addCommands("sudo systemctl restart nginx");
 
