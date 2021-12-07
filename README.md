@@ -11,10 +11,13 @@ I will update the readme, when it is usable :D
 What it does:
 - Setup VPC
 - Setup Security Groups
+- Setup ALB
+- Import SSL Certificate (When already uploaded)
+- Setup EC2
+- install all scripts inside the EC2
 
 Todo:
 - Setup Mysql RDS
-- Setup ALB
-- Import SSL Certificate
-- Setup EC2
-- install all scripts inside the EC2
+
+
+
