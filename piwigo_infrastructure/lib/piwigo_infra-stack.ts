@@ -1,47 +1,51 @@
 import { Stack, StackProps, Construct, CfnParameter, Size } from '@aws-cdk/core';
-import { Vpc,SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass, InstanceSize, MachineImage, AmazonLinuxStorage, Volume, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxCpuType } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
-import {  InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
+import {
+  Vpc, SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass,
+  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer
+} from '@aws-cdk/aws-ec2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 
 export class PiwigoInfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-
-    let certificateArn = this.getCertificateArn();
-
+    //Creates a VPC
     let vpc = this.createVpc();
 
-    let albSecurityGroup = this.createSecurityGroup(vpc,'alb-sg',true);
-    albSecurityGroup.addIngressRule(Peer.anyIpv4(),Port.tcp(443));
+    // Security Group for the ALB
+    // Allow traffic from anywhere to the ALB on Port 443
+    let albSecurityGroup = this.createSecurityGroup(vpc, 'alb-sg', true,
+      [{ Peer: Peer.anyIpv4(), Port: Port.tcp(443) }]);
 
-    let piwigoSecurityGroup = this.createSecurityGroup(vpc,'piwigo-sg',true);
-    piwigoSecurityGroup.addIngressRule(albSecurityGroup, Port.tcp(80));
+    // Security Group for the EC Instance
+    // Allow Traffic from the ALB on Port 80
+    let piwigoSecurityGroup = this.createSecurityGroup(vpc, 'piwigo-sg', true,
+      [{ Peer: albSecurityGroup, Port: Port.tcp(80) }]);
 
-    let databaseSecurityGroup = this.createSecurityGroup(vpc,'db-sg',true);
-    databaseSecurityGroup.addIngressRule(piwigoSecurityGroup,Port.tcp(3306));
+    // Security Group for the Database layer
+    // Allow traffic on port 3306 from the EC2 Instance SG
+    this.createSecurityGroup(vpc, 'db-sg', false,
+      [{ Peer: piwigoSecurityGroup, Port: Port.tcp(443) }]);
 
     let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
-
-    let targetGroup = this.createAlbTargetGroup(vpc);
-    let piwigoEc2 = this.createEc2Instance(vpc);
-    piwigoEc2.addSecurityGroup(piwigoSecurityGroup);
-
-    let albInstanceTarget = new InstanceTarget(piwigoEc2);
-    albInstanceTarget.attachToApplicationTargetGroup(targetGroup);
+    let piwigoEc2 = this.createEc2Instance(vpc, piwigoSecurityGroup);
+    piwigoEc2.userData.addCommands('sudo amazon-linux-extras install nginx1');
+    let targetGroup = this.createAlbTargetGroup(vpc, new InstanceTarget(piwigoEc2));
 
     loadbalancer.addListener('sslListener', {
-      certificates:[
+      certificates: [
         {
-          certificateArn: certificateArn.valueAsString
+          // Gets the ARN for the SSL Certificate to use
+          certificateArn: this.getCertificateArn().valueAsString
         }
       ],
-      protocol:ApplicationProtocol.HTTPS,
-      defaultTargetGroups:[targetGroup]
+      protocol: ApplicationProtocol.HTTPS,
+      defaultTargetGroups: [targetGroup]
     });
   }
 
-  private createEc2Instance(vpc: Vpc) {
-    return new Instance(this, 'piwigoec2', {
+  private createEc2Instance(vpc: Vpc, defaultSecurityGroup?: SecurityGroup): Instance {
+    let instance = new Instance(this, 'piwigoec2', {
       instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.SMALL),
       machineImage: MachineImage.latestAmazonLinux(),
       vpc: vpc,
@@ -55,15 +59,26 @@ export class PiwigoInfraStack extends Stack {
         }
       ]
     });
+
+    if(defaultSecurityGroup){
+      instance.addSecurityGroup(defaultSecurityGroup);
+    }
+
+    return instance;
   }
 
-  private createAlbTargetGroup(vpc: Vpc) {
-    return new ApplicationTargetGroup(this, 'piwigoTargetGroup', {
+  private createAlbTargetGroup(vpc: Vpc, defaultTarget?: IApplicationLoadBalancerTarget): ApplicationTargetGroup {
+    let targetGroup = new ApplicationTargetGroup(this, 'piwigoTargetGroup', {
       port: 80,
       protocol: ApplicationProtocol.HTTP,
       vpc: vpc,
-      targetType:TargetType.INSTANCE
+      targetType: TargetType.INSTANCE
     });
+    if (defaultTarget) {
+      targetGroup.addTarget(defaultTarget)
+    }
+
+    return targetGroup;
   }
 
   private createApplicationLoadBalancer(vpc: Vpc, albSecurityGroup: SecurityGroup) {
@@ -74,11 +89,18 @@ export class PiwigoInfraStack extends Stack {
     });
   }
 
-  private createSecurityGroup(vpc: Vpc, id: string, allowAllOutbound: boolean) {
-    return new SecurityGroup(this, id, {
+  private createSecurityGroup(
+    vpc: Vpc, id: string, allowAllOutbound: boolean, allowedSecurityGroups?: [{ Peer: IPeer, Port: Port }]): SecurityGroup {
+    let securityGroup = new SecurityGroup(this, id, {
       vpc: vpc,
       allowAllOutbound: allowAllOutbound,
     });
+
+    allowedSecurityGroups?.forEach(grp => {
+      securityGroup.addIngressRule(grp.Peer, grp.Port);
+    });
+
+    return securityGroup;
   }
 
   private createVpc() {

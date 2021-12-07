@@ -1,14 +1,4 @@
 {
-  "Parameters": {
-    "certificateArn": {
-      "Type": "String",
-      "Description": "Insert the ARN for the SSL Certificate Load Balancer"
-    },
-    "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
-      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-      "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
-    }
-  },
   "Resources": {
     "piwigovpc5604632A": {
       "Type": "AWS::EC2::VPC",
@@ -633,9 +623,11 @@
         "GroupDescription": "PiwigoInfraStack/db-sg",
         "SecurityGroupEgress": [
           {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
+            "CidrIp": "255.255.255.255/32",
+            "Description": "Disallow all traffic",
+            "FromPort": 252,
+            "IpProtocol": "icmp",
+            "ToPort": 86
           }
         ],
         "VpcId": {
@@ -646,12 +638,12 @@
         "aws:cdk:path": "PiwigoInfraStack/db-sg/Resource"
       }
     },
-    "dbsgfromPiwigoInfraStackpiwigosgC8BBC1E83306B3605369": {
+    "dbsgfromPiwigoInfraStackpiwigosgC8BBC1E84431F1E2BD5": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "IpProtocol": "tcp",
-        "Description": "from PiwigoInfraStackpiwigosgC8BBC1E8:3306",
-        "FromPort": 3306,
+        "Description": "from PiwigoInfraStackpiwigosgC8BBC1E8:443",
+        "FromPort": 443,
         "GroupId": {
           "Fn::GetAtt": [
             "dbsgCE6973BD",
@@ -664,10 +656,10 @@
             "GroupId"
           ]
         },
-        "ToPort": 3306
+        "ToPort": 443
       },
       "Metadata": {
-        "aws:cdk:path": "PiwigoInfraStack/db-sg/from PiwigoInfraStackpiwigosgC8BBC1E8:3306"
+        "aws:cdk:path": "PiwigoInfraStack/db-sg/from PiwigoInfraStackpiwigosgC8BBC1E8:443"
       }
     },
     "piwigoAlb65C512F2": {
@@ -743,6 +735,13 @@
           {
             "Key": "stickiness.enabled",
             "Value": "false"
+          }
+        ],
+        "Targets": [
+          {
+            "Id": {
+              "Ref": "piwigoec207CAEE2F"
+            }
           }
         ],
         "TargetType": "instance",
@@ -879,7 +878,7 @@
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash"
+          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras install nginx1"
         }
       },
       "DependsOn": [
@@ -892,12 +891,22 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31SwW7CMAz9Fu5ZGNu08xiaUKVpqgri7qaGGdqkShwQqvrvcwtdu8tOtt97dp6tLPTi+UU/zt7gEh5McZo3xnnUzYbBnNRqb1PwUCGjVxkGF71BtXI2sI+GO35E91aIgpicbVU3rkHzpJtdbTpul65U6ukMjJuYW+ybxyxzkXELeYkjPmLLEJwh6Eb/ilUa85LMOOIjSbvwBbyWRy5w7arEinURTCBxcq+WLFt+V2hZbdBET3xdexfr3sK/QGIPHkNQiVwC7G37IW8VlhCYTOmgyKEUjOzhLKdY1rU47tf4FO695+Sy0vynnuooMNq7Zsgn/Bb8QbYbTE7KVhFUusnc7aRDHFym3u2pxLZtlXUF6mOYnxev8hv0YnYMRA8+WqYKdXaLP91E0zEpAgAA"
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31SwW7CMAz9Fu4hrNu08xiaUKVpqgri7qYGDG1SJQ4IVf33JYWu3WUn2++9Ou9ZTWTy8iqfZu9wdXNVnhetMhZlu2FQZ5GjM94qFKu9zsBCjYxWrIx2bL3iCE8lgSiJyehOxHUtqmfZ7hoVuV22EpmlCzBufKGx/3jscuMZt1BUOOIjtnTOKIK4+lcsMl9UpMYVn2kWyzfwOjxyhVucUh0cB8EECk4e05JDymONmsUGlbfEt7U1vukt/Auk+mDROZGGS4C+px/6TmAFjklVBsoCqoCRPlzCKZZNExz3Mb4C99Fz8aD7v/NUR45RPzRDP+G3YA8h3WByMnaCoJZtbu4nHergMrNmTxV2XSe0KVGe3OKSvIW/QSazkyOaW6+ZapT5vf4Auy4acykCAAA="
       },
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/CDKMetadata/Default"
       },
       "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
+    },
+    "certificateArn": {
+      "Type": "String",
+      "Description": "Insert the ARN for the SSL Certificate Load Balancer"
     }
   },
   "Conditions": {
