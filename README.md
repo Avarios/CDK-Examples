@@ -18,6 +18,7 @@ What it does:
 
 Todo:
 - Setup Mysql RDS
+- EC2 SSH Key
 
 
 

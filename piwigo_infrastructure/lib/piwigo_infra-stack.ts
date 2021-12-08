@@ -1,7 +1,7 @@
 import { Stack, StackProps, Construct, CfnParameter, Size } from '@aws-cdk/core';
 import {
   Vpc, SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass,
-  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer, Protocol
+  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer
 } from '@aws-cdk/aws-ec2';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
@@ -11,7 +11,6 @@ export class PiwigoInfraStack extends Stack {
     super(scope, id, props);
     //Creates a VPC
     let vpc = this.createVpc();
-
     // Security Group for the ALB
     // Allow traffic from anywhere to the ALB on Port 443
     // Allow traffic from anywhere to the ALB on Port SSH
@@ -97,7 +96,8 @@ export class PiwigoInfraStack extends Stack {
             volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
           })
         }
-      ]
+      ],
+      keyName:this.getSshKeyName().valueAsString
     });
 
     if (defaultSecurityGroup) {
@@ -160,7 +160,8 @@ export class PiwigoInfraStack extends Stack {
         },
         {
           name: 'natSubnet',
-          subnetType: SubnetType.PUBLIC
+          subnetType: SubnetType.PUBLIC,
+          cidrMask:28
         }
       ],
       maxAzs: 2
@@ -171,6 +172,13 @@ export class PiwigoInfraStack extends Stack {
     return new CfnParameter(this, 'certificateArn', {
       type: "String",
       description: "Insert the ARN for the SSL Certificate Load Balancer"
+    });
+  }
+
+  private getSshKeyName() {
+    return new CfnParameter(this, 'keyname', {
+      type: "String",
+      description: "Keyname for accesing trough the instance trough SSH"
     });
   }
 }

@@ -315,7 +315,7 @@
     "piwigovpcnatSubnetSubnet1Subnet56F5089F": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
-        "CidrBlock": "10.0.64.0/18",
+        "CidrBlock": "10.0.2.32/28",
         "VpcId": {
           "Ref": "piwigovpc5604632A"
         },
@@ -437,7 +437,7 @@
     "piwigovpcnatSubnetSubnet2Subnet865EC055": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
-        "CidrBlock": "10.0.128.0/18",
+        "CidrBlock": "10.0.2.48/28",
         "VpcId": {
           "Ref": "piwigovpc5604632A"
         },
@@ -858,6 +858,9 @@
           "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
         },
         "InstanceType": "t3.small",
+        "KeyName": {
+          "Ref": "keyname"
+        },
         "SecurityGroupIds": [
           {
             "Fn::GetAtt": [
@@ -882,7 +885,7 @@
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras enable nginx1\nsudo yum clean metadata\nsudo yum -y install nginx\nnginx -v"
+          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras enable nginx1 php8.0\nsudo yum clean metadata\nsudo yum -y install nginx\nsudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}\nsudo systemctl enable --now nginx\nnginx -v\nsudo systemctl enable php-fpm\nsudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini\nsudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini\nsudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini\nsudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\nsudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\nsudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infrastructure/res/nginx.conf_ -P /etc/nginx/\nsudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf\nsudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/\nsudo mv /usr/share/nginx/html/dlcounter.php?code=netinstall /usr/share/nginx/html/netinstall.php\nsudo chmod 777 /usr/share/nginx/html/\nsudo systemctl restart php-fpm\nsudo systemctl restart nginx"
         }
       },
       "DependsOn": [
@@ -931,6 +934,10 @@
     }
   },
   "Parameters": {
+    "keyname": {
+      "Type": "String",
+      "Description": "Keyname for accesing trough the instance trough SSH"
+    },
     "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
       "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
