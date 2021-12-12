@@ -6,6 +6,9 @@ import {
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 
+const ec2SubnetName = 'piwigoSubnet'
+
+
 export class PiwigoInfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -97,6 +100,9 @@ export class PiwigoInfraStack extends Stack {
           })
         }
       ],
+      vpcSubnets: {
+        subnetGroupName: ec2SubnetName
+      },
       keyName:this.getSshKeyName().valueAsString
     });
 
@@ -149,7 +155,7 @@ export class PiwigoInfraStack extends Stack {
       natGateways: 1,
       subnetConfiguration: [
         {
-          name: 'piwigoSubnet',
+          name: ec2SubnetName,
           subnetType: SubnetType.PRIVATE_WITH_NAT,
           cidrMask: 24
         },
