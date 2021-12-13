@@ -13,6 +13,7 @@ sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini
 sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini
 sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini
 wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infra_wo_lb/res/nginx.conf_ -P /etc/nginx/
 mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf
 wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/

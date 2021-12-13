@@ -818,6 +818,35 @@
         "aws:cdk:path": "PiwigoInfraStack/piwigoec2/InstanceRole/Resource"
       }
     },
+    "piwigoec2InstanceRoleDefaultPolicy023C8DC7": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "cloudformation:DescribeStackResource",
+                "cloudformation:SignalResource"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "AWS::StackId"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "piwigoec2InstanceRoleDefaultPolicy023C8DC7",
+        "Roles": [
+          {
+            "Ref": "piwigoec2InstanceRole913B2DD6"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/InstanceRole/DefaultPolicy/Resource"
+      }
+    },
     "piwigoec2InstanceProfile0B04B740": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
@@ -855,7 +884,7 @@
           "Ref": "piwigoec2InstanceProfile0B04B740"
         },
         "ImageId": {
-          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
         },
         "InstanceType": "t3.small",
         "KeyName": {
@@ -885,14 +914,115 @@
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash\nsudo amazon-linux-extras enable nginx1 php8.0\nsudo yum clean metadata\nsudo yum -y install nginx\nsudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}\nsudo systemctl enable --now nginx\nnginx -v\nsudo systemctl enable php-fpm\nsudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf\nsudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini\nsudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini\nsudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini\nsudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\nsudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\nsudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infrastructure/res/nginx.conf_ -P /etc/nginx/\nsudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf\nsudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/\nsudo mv /usr/share/nginx/html/dlcounter.php?code=netinstall /usr/share/nginx/html/netinstall.php\nsudo chmod 777 /usr/share/nginx/html/\nsudo systemctl restart php-fpm\nsudo systemctl restart nginx"
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n# fingerprint: 9fce599a7d915c15\n(\n  set +e\n  /opt/aws/bin/cfn-init -v --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                " --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource piwigoec207CAEE2F -c default\n  /opt/aws/bin/cfn-signal -e $? --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                " --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource piwigoec207CAEE2F\n  cat /var/log/cfn-init.log >&2\n)\nsudo su\r\namazon-linux-extras enable nginx1 php8.0\r\nyum clean metadata\r\nyum -y install nginx\r\nyum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}\r\nsystemctl enable --now nginx\r\nnginx -v\r\nsystemctl enable php-fpm\r\nsed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf\r\nsed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf\r\nsed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf\r\nsed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini\r\nsed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini\r\nsed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini\r\nsed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\r\nsed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini\r\nwget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infra_wo_lb/res/nginx.conf_ -P /etc/nginx/\r\nmv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf\r\nwget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/\r\nmv /usr/share/nginx/html/dlcounter.php\\?code\\=netinstall /usr/share/nginx/html/netinstall.php\r\nchmod 777 /usr/share/nginx/html/\r\nsystemctl restart php-fpm\r\nsystemctl restart nginx"
+              ]
+            ]
+          }
         }
       },
       "DependsOn": [
+        "piwigoec2InstanceRoleDefaultPolicy023C8DC7",
         "piwigoec2InstanceRole913B2DD6"
       ],
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Count": 1,
+          "Timeout": "PT5M"
+        }
+      },
       "Metadata": {
-        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/Resource"
+        "aws:cdk:path": "PiwigoInfraStack/piwigoec2/Resource",
+        "AWS::CloudFormation::Init": {
+          "configSets": {
+            "default": [
+              "config"
+            ]
+          },
+          "config": {
+            "commands": {
+              "000": {
+                "command": "sudo amazon-linux-extras enable nginx1 php8.0"
+              },
+              "001": {
+                "command": "sudo yum clean metadata"
+              },
+              "002": {
+                "command": "sudo yum -y install nginx"
+              },
+              "003": {
+                "command": "sudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}"
+              },
+              "004": {
+                "command": "sudo systemctl enable --now nginx"
+              },
+              "005": {
+                "command": "sudo systemctl enable php-fpm"
+              },
+              "006": {
+                "command": "sudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf"
+              },
+              "007": {
+                "command": "sudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf"
+              },
+              "008": {
+                "command": "sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf"
+              },
+              "009": {
+                "command": "sudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini"
+              },
+              "010": {
+                "command": "sudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini"
+              },
+              "011": {
+                "command": "sudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini"
+              },
+              "012": {
+                "command": "sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini"
+              },
+              "013": {
+                "command": "sudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infra_wo_lb/res/nginx.conf_ -P /etc/nginx/"
+              },
+              "014": {
+                "command": "sudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf"
+              },
+              "015": {
+                "command": "sudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/"
+              },
+              "016": {
+                "command": "sudo mv /usr/share/nginx/html/dlcounter.php?code=netinstall /usr/share/nginx/html/netinstall.php"
+              },
+              "017": {
+                "command": "sudo chmod 777 /usr/share/nginx/html/"
+              },
+              "018": {
+                "command": "sudo systemctl restart php-fpm"
+              },
+              "019": {
+                "command": "sudo systemctl restart nginx"
+              }
+            }
+          }
+        }
       }
     },
     "piwigoTargetGroupCA7FEBCE": {
@@ -925,7 +1055,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31SwW7CMAz9Fu4hrNu08xiaUKVpqgri7qYGDG1SJQ4IVf33JYWu3WUn2++9Ou9ZTWTy8iqfZu9wdXNVnhetMhZlu2FQZ5GjM94qFKu9zsBCjYxWrIx2bL3iCE8lgSiJyehOxHUtqmfZ7hoVuV22EpmlCzBufKGx/3jscuMZt1BUOOIjtnTOKIK4+lcsMl9UpMYVn2kWyzfwOjxyhVucUh0cB8EECk4e05JDymONmsUGlbfEt7U1vukt/Auk+mDROZGGS4C+px/6TmAFjklVBsoCqoCRPlzCKZZNExz3Mb4C99Fz8aD7v/NUR45RPzRDP+G3YA8h3WByMnaCoJZtbu4nHergMrNmTxV2XSe0KVGe3OKSvIW/QSazkyOaW6+ZapT5vf4Auy4acykCAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/31QTW/CMAz9LdxDWDd2H0MIVZq2qCDubmpYoE2qxAGhqv99SUvX7rKT/T7iPDvhycuSP83e4ObmsrgsGmks8mZHIC8sQ2e8lcjWRy3AQoWENoIvT7UntjbakfWSIjc1B6FQpIxuWRzcoHzmzaGWUTuINRNWXYFw53ON3eOxy4wn3ENe4siP3Mo5IxXE0b9mJnxeKjmO2KQilk+gbfjkBveIUh2yB8OECkkeaEVh3+8KNbEdSm8V3bfW+LqL8C+R6pNF51gaLgG6337oW4YlOFKyNFDkUAZO6dM1nGJV1yFxt8ZH0N47rT/tHzz1KUeoH56hn+h7sKew3RByAlumoOJNZvqTdlWY8K47wtgNsYU1R1Vi27ZMmwL52S2uyZInr3w5Ozul5tZrUhXyrK8/4+XQ/0QCAAA="
       },
       "Metadata": {
         "aws:cdk:path": "PiwigoInfraStack/CDKMetadata/Default"
@@ -938,13 +1068,36 @@
       "Type": "String",
       "Description": "Keyname for accesing trough the instance trough SSH"
     },
-    "SsmParameterValueawsserviceamiamazonlinuxlatestamznamihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-      "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
     },
     "certificateArn": {
       "Type": "String",
       "Description": "Insert the ARN for the SSL Certificate Load Balancer"
+    }
+  },
+  "Outputs": {
+    "piwigoUrl": {
+      "Description": "The URL of the endpoints",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt": [
+                "piwigoAlb65C512F2",
+                "DNSName"
+              ]
+            },
+            "/netinstall.php"
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "piwigoUrl"
+      }
     }
   },
   "Conditions": {
