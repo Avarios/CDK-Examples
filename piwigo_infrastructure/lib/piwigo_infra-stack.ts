@@ -1,17 +1,18 @@
-import { Stack, StackProps, Construct, CfnParameter, Size } from '@aws-cdk/core';
+import { Stack, StackProps, Construct, CfnParameter, Size, CfnOutput } from '@aws-cdk/core';
 import {
   Vpc, SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass,
-  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer
+  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer, AmazonLinuxGeneration, CloudFormationInit, InitCommand
 } from '@aws-cdk/aws-ec2';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 
-const ec2SubnetName = 'piwigoSubnet'
 
+const ec2SubnetName = 'piwigoSubnet'
 
 export class PiwigoInfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
     //Creates a VPC
     let vpc = this.createVpc();
     // Security Group for the ALB
@@ -39,8 +40,6 @@ export class PiwigoInfraStack extends Stack {
 
     let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
     let piwigoEc2 = this.createEc2Instance(vpc, piwigoSecurityGroup);
-    this.configureUserdata(piwigoEc2);
-
     let targetGroup = this.createAlbTargetGroup(vpc, new InstanceTarget(piwigoEc2));
 
     loadbalancer.addListener('sslListener', {
@@ -53,45 +52,49 @@ export class PiwigoInfraStack extends Stack {
       protocol: ApplicationProtocol.HTTPS,
       defaultTargetGroups: [targetGroup]
     });
+
+    let publicUrl = new CfnOutput(this, 'piwigoUrl', {
+      value: `http://${loadbalancer.loadBalancerDnsName}/netinstall.php`,
+      description: 'The URL of the endpoints',
+      exportName: 'piwigoUrl'
+    });
+
   }
 
-  /* This method adds all relevant linux commands to install
-     nginx
-     php8
-     and to modify all needed files to let nginx use php
-  */
-  private configureUserdata(instance: Instance) {
-    instance.userData.addCommands('sudo amazon-linux-extras enable nginx1 php8.0');
-    instance.userData.addCommands('sudo yum clean metadata');
-    instance.userData.addCommands('sudo yum -y install nginx');
-    instance.userData.addCommands('sudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}');
-    instance.userData.addCommands('sudo systemctl enable --now nginx');
-    instance.userData.addCommands('nginx -v');
-    instance.userData.addCommands("sudo systemctl enable php-fpm");
-    instance.userData.addCommands("sudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf");
-    instance.userData.addCommands("sudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf");
-    instance.userData.addCommands("sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf"); 
-    instance.userData.addCommands("sudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini");
-    instance.userData.addCommands("sudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini");
-    instance.userData.addCommands("sudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini");
-    instance.userData.addCommands("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini");
-    instance.userData.addCommands("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini");
-    instance.userData.addCommands("sudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infrastructure/res/nginx.conf_ -P /etc/nginx/");
-    instance.userData.addCommands("sudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf");
-    instance.userData.addCommands("sudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/");
-    instance.userData.addCommands("sudo mv /usr/share/nginx/html/dlcounter.php\?code\=netinstall /usr/share/nginx/html/netinstall.php");
-    instance.userData.addCommands("sudo chmod 777 /usr/share/nginx/html/");
-    instance.userData.addCommands("sudo systemctl restart php-fpm");
-    instance.userData.addCommands("sudo systemctl restart nginx");
-
+  private getShellCommandsForPiwigo():CloudFormationInit {
+    return CloudFormationInit.fromElements(
+      InitCommand.shellCommand('sudo amazon-linux-extras enable nginx1 php8.0'),
+      InitCommand.shellCommand('sudo yum clean metadata'),
+      InitCommand.shellCommand('sudo yum -y install nginx'),
+      InitCommand.shellCommand('sudo yum -y install php php-{cli,fpm,pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,intl,zip,imap}'),
+      InitCommand.shellCommand('sudo systemctl enable --now nginx'),
+      InitCommand.shellCommand('sudo systemctl enable php-fpm'),
+      InitCommand.shellCommand("sudo sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf"),
+      InitCommand.shellCommand("sudo sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf"),
+      InitCommand.shellCommand("sudo sed -i 's/pm = dynamic/pm = ondemand/g' /etc/php-fpm.d/www.conf"),
+      InitCommand.shellCommand("sudo sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php.ini"),
+      InitCommand.shellCommand("sudo sed -i 's/max_input_time = 60/max_input_time = 300/g' /etc/php.ini"),
+      InitCommand.shellCommand("sudo sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php.ini"),
+      InitCommand.shellCommand("sudo sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini"),
+      InitCommand.shellCommand("sudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/piwigo_infra_wo_lb/res/nginx.conf_ -P /etc/nginx/"),
+      InitCommand.shellCommand("sudo mv /etc/nginx/nginx.conf_ /etc/nginx/nginx.conf"),
+      InitCommand.shellCommand("sudo wget https://piwigo.org/download/dlcounter.php?code=netinstall -P /usr/share/nginx/html/"),
+      InitCommand.shellCommand("sudo mv /usr/share/nginx/html/dlcounter.php\?code\=netinstall /usr/share/nginx/html/netinstall.php"),
+      InitCommand.shellCommand("sudo chmod 777 /usr/share/nginx/html/"),
+      InitCommand.shellCommand("sudo systemctl restart php-fpm"),
+      InitCommand.shellCommand("sudo systemctl restart nginx"),
+    )
   }
 
   private createEc2Instance(vpc: Vpc, defaultSecurityGroup?: SecurityGroup): Instance {
     let instance = new Instance(this, 'piwigoec2', {
       instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.SMALL),
-      machineImage: MachineImage.latestAmazonLinux(),
+      machineImage: MachineImage.latestAmazonLinux({
+        generation: AmazonLinuxGeneration.AMAZON_LINUX_2
+      }),
       vpc: vpc,
       instanceName: 'piwigoweb',
+      init: this.getShellCommandsForPiwigo(),
       blockDevices: [
         {
           deviceName: '/dev/sdh',
@@ -103,7 +106,7 @@ export class PiwigoInfraStack extends Stack {
       vpcSubnets: {
         subnetGroupName: ec2SubnetName
       },
-      keyName:this.getSshKeyName().valueAsString
+      keyName: this.getSshKeyName().valueAsString
     });
 
     if (defaultSecurityGroup) {
@@ -167,7 +170,7 @@ export class PiwigoInfraStack extends Stack {
         {
           name: 'natSubnet',
           subnetType: SubnetType.PUBLIC,
-          cidrMask:28
+          cidrMask: 28
         }
       ],
       maxAzs: 2
