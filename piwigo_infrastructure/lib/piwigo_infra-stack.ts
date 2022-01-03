@@ -99,7 +99,7 @@ export class PiwigoInfraStack extends Stack {
 
   private createEc2Instance(vpc: Vpc, defaultSecurityGroup?: SecurityGroup): Instance {
     let instance = new Instance(this, 'piwigoec2', {
-      instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.SMALL),
+      instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.MEDIUM),
       machineImage: MachineImage.latestAmazonLinux({
         generation: AmazonLinuxGeneration.AMAZON_LINUX_2
       }),
