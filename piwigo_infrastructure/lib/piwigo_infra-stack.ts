@@ -58,7 +58,7 @@ export class PiwigoInfraStack extends Stack {
     });
 
     let publicUrl = new CfnOutput(this, 'piwigoUrl', {
-      value: `http://${loadbalancer.loadBalancerDnsName}/netinstall.php`,
+      value: `https://${loadbalancer.loadBalancerDnsName}/netinstall.php`,
       description: 'The URL of the endpoints',
       exportName: 'piwigoUrl'
     });
