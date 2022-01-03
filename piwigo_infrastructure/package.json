@@ -28,6 +28,9 @@
     "@aws-cdk/aws-elasticloadbalancingv2-actions": "1.134.0",
     "@aws-cdk/aws-elasticloadbalancingv2-targets": "1.134.0",
     "@aws-cdk/aws-rds": "1.134.0",
+    "@aws-cdk/aws-iam": "1.134.0",
+    "@aws-cdk/aws-secretsmanager": "1.134.0",
+    "@aws-cdk/aws-ssm": "1.134.0",
     "source-map-support": "^0.5.16"
   }
 }

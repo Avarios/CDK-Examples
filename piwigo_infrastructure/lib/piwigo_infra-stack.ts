@@ -1,15 +1,20 @@
 import { Stack, StackProps, Construct, CfnParameter, Size, CfnOutput } from '@aws-cdk/core';
 import {
   Vpc, SubnetType, SecurityGroup, Port, Peer, Instance, InstanceType, InstanceClass,
-  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer, AmazonLinuxGeneration, CloudFormationInit, InitCommand
+  InstanceSize, MachineImage, BlockDeviceVolume, EbsDeviceVolumeType, IPeer, AmazonLinuxGeneration, CloudFormationInit, InitCommand, IMachineImage
 } from '@aws-cdk/aws-ec2';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, IApplicationLoadBalancerTarget, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
+import { DatabaseProps } from './database-stack';
 
 
 const ec2SubnetName = 'piwigoSubnet'
+const databaseSubnetName = 'piwigoDatabaseSubnet';
 
 export class PiwigoInfraStack extends Stack {
+
+  public stackProps: DatabaseProps;
+
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -35,7 +40,7 @@ export class PiwigoInfraStack extends Stack {
 
     // Security Group for the Database layer
     // Allow traffic on port 3306 from the EC2 Instance SG
-    this.createSecurityGroup(vpc, 'db-sg', false,
+    let databaseSecurityGroup = this.createSecurityGroup(vpc, 'db-sg', false,
       [{ Peer: piwigoSecurityGroup, Port: Port.tcp(443) }]);
 
     let loadbalancer = this.createApplicationLoadBalancer(vpc, albSecurityGroup);
@@ -59,9 +64,16 @@ export class PiwigoInfraStack extends Stack {
       exportName: 'piwigoUrl'
     });
 
+    this.stackProps = {
+      subnetGroupName: databaseSubnetName,
+      ec2Role: piwigoEc2.role,
+      accessingEc2: piwigoEc2,
+      rdsSecurityGroup: databaseSecurityGroup,
+      vpc: vpc
+    }
   }
 
-  private getShellCommandsForPiwigo():CloudFormationInit {
+  private getShellCommandsForPiwigo(): CloudFormationInit {
     return CloudFormationInit.fromElements(
       InitCommand.shellCommand('sudo amazon-linux-extras enable nginx1 php8.0'),
       InitCommand.shellCommand('sudo yum clean metadata'),
@@ -163,7 +175,7 @@ export class PiwigoInfraStack extends Stack {
           cidrMask: 24
         },
         {
-          name: 'databaseSubnet',
+          name: databaseSubnetName,
           subnetType: SubnetType.PRIVATE_ISOLATED,
           cidrMask: 28
         },

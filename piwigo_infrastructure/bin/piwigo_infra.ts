@@ -2,9 +2,10 @@
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { PiwigoInfraStack } from '../lib/piwigo_infra-stack';
+import { Database } from '../lib/database-stack';
 
 const app = new cdk.App();
-new PiwigoInfraStack(app, 'PiwigoInfraStack', {
+let piwigoStack = new PiwigoInfraStack(app, 'PiwigoInfraStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -18,4 +19,8 @@ new PiwigoInfraStack(app, 'PiwigoInfraStack', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+}
+);
+new Database(piwigoStack, 'PiwigoDatabaseStack', piwigoStack.stackProps);
+
+
