@@ -1,4 +1,4 @@
-import { Stack, Construct, RemovalPolicy } from '@aws-cdk/core';
+import { Stack, Construct, RemovalPolicy, CfnOutput } from '@aws-cdk/core';
 import { Vpc, SecurityGroup, Instance, InstanceType, InstanceClass, InstanceSize } from '@aws-cdk/aws-ec2';
 import { Secret } from '@aws-cdk/aws-secretsmanager';
 import { StringParameter } from '@aws-cdk/aws-ssm';
@@ -61,6 +61,25 @@ export class Database extends Construct {
       instanceIdentifier: "piwigo-database"
     });
 
+    let databaseDNS = new CfnOutput(this, 'dbDns', {
+      value: rdsInstance.dbInstanceEndpointAddress,
+      description: 'The Database DNS Name',
+      exportName: 'dbDNS'
+    });
+
+    let databaseName = new CfnOutput(this, 'dbName', {
+      value: rdsInstance.instanceEndpoint.hostname,
+      description: 'The Database DNS Name',
+      exportName: 'dbDNS'
+    });
+
+    let secretValue = new CfnOutput(this, 'secretValue', {
+      value: databaseCredentialsSecret.secretValue.toString(),
+      description: 'The Database Password',
+      exportName: 'dbPassword'
+    });
+
+    databaseCredentialsSecret.secretValue
     //const rdsInstanceReplication = new rds.DatabaseInstanceReadReplica(this, 'DBInstanceReplication', {
     //  sourceDatabaseInstance: rdsInstance,
     //  instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.SMALL),
