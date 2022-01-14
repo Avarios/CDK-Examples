@@ -3,13 +3,48 @@ using Amazon.CDK.AWS.EC2;
 
 namespace Piwigo
 {
-    internal class NetworkSubStack : NestedStack
+    public class NetworkStackParameter
+    {
+        /// <summary>
+        /// The VPC the ALB resides in
+        /// </summary>
+        public Vpc Vpc { get; private set; }
+
+        /// <summary>
+        /// Security Group with all Ingress/Egress Rules for the ALB
+        /// </summary>
+        public SecurityGroup SecurityGroupLoadBalancer { get; private set; }
+
+        /// <summary>
+        /// The VPC SubnetGroup Name for the ALB to be hosted in
+        /// </summary>
+        public string LoadBalancerSubnetGroupName { get; private set; }
+
+        /// <summary>
+        /// The Server Instance where the Traffic from ALB is routed to
+        /// </summary>
+        public SecurityGroup InstanceSecurityGroup { get; private set; }
+
+        public NetworkStackParameter(Vpc vpc,SecurityGroup loadBalancerSecurityGroup,string loadbalancerSubnetGroupName, SecurityGroup instanceSecurityGroup)
+        {
+            this.Vpc = vpc;
+            this.SecurityGroupLoadBalancer = loadBalancerSecurityGroup;
+            this.LoadBalancerSubnetGroupName = loadbalancerSubnetGroupName;
+            this.InstanceSecurityGroup = instanceSecurityGroup;
+        }
+    }
+
+
+    public class NetworkStack : NestedStack
     {
         const string DATABASE_SUBNET_NAME = "dbSubnet";
         const string SERVER_SUBNET_NAME = "serverSubnet";
         const string ALB_SUBNET_NAME = "albSubnet";
 
-        public NetworkSubStack(Constructs.Construct scope, string id, INestedStackProps props = null) : base(scope, id, props)
+        public NetworkStackParameter OutputParameters { get; private set; }
+
+
+        public NetworkStack(Constructs.Construct scope, string id, INestedStackProps props = null) : base(scope, id, props)
         { 
             var vpc = new Vpc(scope, "piwigo-vpc", new VpcProps()
             {
@@ -48,6 +83,10 @@ namespace Piwigo
             serverSg.AddIngressRule(albSg, Port.Tcp(80));
             albSg.AddIngressRule(Peer.AnyIpv4(), Port.Tcp(443));
             dbSg.AddIngressRule(serverSg, Port.Tcp(3306));
+
+            //Add all the Parameters defined here and export it
+            this.OutputParameters = new NetworkStackParameter(vpc, albSg, ALB_SUBNET_NAME, serverSg);
+
         }
     }
 }

@@ -7,7 +7,9 @@ namespace Piwigo
     {
         internal PiwigoStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
-            // The code that defines your stack goes here
+            var networkStack = new NetworkStack(scope, id);
+            var networkStackOutputParameters = networkStack.OutputParameters;
+
         }
     }
 }
