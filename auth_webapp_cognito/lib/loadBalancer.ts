@@ -1,7 +1,9 @@
 import * as cdk from '@aws-cdk/core';
 import { Vpc, SecurityGroup, Instance } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, Protocol, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
+import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
+import { UserPool, UserPoolClient, UserPoolDomain } from '@aws-cdk/aws-cognito';
 
 
 export interface LoadBalancerProps {
@@ -11,15 +13,20 @@ export interface LoadBalancerProps {
 }
 
 export class LoadBalancer extends cdk.Construct {
+
+  private readonly LoadBalancerInstance: ApplicationLoadBalancer;
+  private readonly Ec2TargetGroup: ApplicationTargetGroup;
+  public readonly LoadBalancerDnsName:string;
+
   constructor(scope: cdk.Construct, id: string, props: LoadBalancerProps) {
     super(scope, id);
-    let alb = new ApplicationLoadBalancer(this, 'webAppAlb', {
+    this.LoadBalancerInstance = new ApplicationLoadBalancer(this, 'webAppAlb', {
       vpc: props.Vpc,
       securityGroup: props.LoadBalancerSecurityGroup,
       internetFacing: true
     });
 
-    let instanceTarget = new ApplicationTargetGroup(scope, 'webappTarget', {
+    this.Ec2TargetGroup = new ApplicationTargetGroup(scope, 'webappTarget', {
       targetType: TargetType.INSTANCE,
       healthCheck: {
         enabled: true,
@@ -32,11 +39,23 @@ export class LoadBalancer extends cdk.Construct {
       vpc: props.Vpc,
       targets: [new InstanceTarget(props.TargetInstance)]
     });
+    this.LoadBalancerDnsName = this.LoadBalancerInstance.loadBalancerDnsName;
+  }
 
-    alb.addListener('instanceListener', {
-      protocol: ApplicationProtocol.HTTPS,
-      defaultTargetGroups: [instanceTarget],
-      certificates: [{ certificateArn: 'ADD ARN HERE' }]
+  public AddCognitoListener(applicationUserPool: UserPool, applicationUserPoolClient: UserPoolClient,
+    applicationUserPoolDomain: UserPoolDomain) {
+    this.LoadBalancerInstance.addListener('instanceListener', {
+      protocol: ApplicationProtocol.HTTP,
+      defaultTargetGroups: [this.Ec2TargetGroup],
+      defaultAction: new AuthenticateCognitoAction({
+        userPool: applicationUserPool,
+        userPoolClient: applicationUserPoolClient,
+        userPoolDomain: applicationUserPoolDomain,
+        next: ListenerAction.fixedResponse(200, {
+          contentType: "text/plain",
+          messageBody: "authenticated"
+        })
+      })
     });
   }
 }

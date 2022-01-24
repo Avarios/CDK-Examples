@@ -14,7 +14,12 @@ export class Authentication extends cdk.Construct {
             accountRecovery: AccountRecovery.EMAIL_ONLY,
             mfa: Mfa.OPTIONAL,
             email: UserPoolEmail.withCognito('ADD REPLY MAIL HERE'),
-            selfSignUpEnabled: true
+            selfSignUpEnabled: true,
+            standardAttributes: {
+                email: { required: true },
+                givenName: { required: true },
+                familyName: { required: true }
+            }
         });
 
         this.UserPoolClient = new UserPoolClient(this, 'authBackendClient', {
@@ -34,6 +39,9 @@ export class Authentication extends cdk.Construct {
 
         this.UserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
             userPool: this.UserPool,
+            cognitoDomain:{
+                domainPrefix:'auth-test'
+            }
         });
     }
 }

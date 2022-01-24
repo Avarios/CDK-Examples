@@ -1,15 +1,14 @@
 {
-  "name": "auth_webapp_cognito",
+  "name": "cdk",
   "version": "0.1.0",
   "bin": {
-    "infrastructure": "bin/infrastructure.js"
+    "cdk": "bin/cdk.js"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "cdk": "cdk"
   },
   "devDependencies": {
     "@aws-cdk/assertions": "1.134.0",
@@ -17,10 +16,9 @@
     "@types/node": "10.17.27",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
+    "aws-cdk": "1.134.0",
+    "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
-  },
-  "peerDependencies": {
-    "@aws-cdk/core": "1.134.0"
   },
   "dependencies": {
     "@aws-cdk/core": "1.134.0",
