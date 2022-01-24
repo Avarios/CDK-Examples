@@ -5,8 +5,7 @@ import { InfrastructureStack } from '../lib/infrastructure-stack';
 import { NetworkStack } from '../lib/networkStack';
 import { SecurityGroups } from '../lib/securityGroups';
 import { Compute } from '../lib/compute';
-import { LoadBalancer } from '../lib/loadBalancer';
-import { Authentication } from '../lib/authentication';
+import { AuthenticationLoadBalancer } from '../lib/authenticationLoadBalancer';
 
 const app = new cdk.App();
 const stack = new InfrastructureStack(app, 'AuthenticationDemoStack', {
@@ -29,9 +28,7 @@ let network = new NetworkStack(stack, 'AuthWebApp');
 let securityGroups = new SecurityGroups(stack, 'AuthSecurityGroups', network.DefaultVpc);
 let webserver = new Compute(stack, 'AuthWebserver', network.DefaultVpc, securityGroups.InstanceSecurityGroup,
     network.InstanceSubnetGroupName).WebServer
-let alb = new LoadBalancer(stack, 'AuthLoadBalancer', {
+new AuthenticationLoadBalancer(stack, 'AuthLoadBalancer', {
     LoadBalancerSecurityGroup: securityGroups.AlbSecurityGroup,
     Vpc: network.DefaultVpc, TargetInstance: webserver
 });
-let cognito = new Authentication(stack, 'AuthCognito', alb.LoadBalancerDnsName);
-alb.AddCognitoListener(cognito.UserPool, cognito.UserPoolClient, cognito.UserPoolDomain);
