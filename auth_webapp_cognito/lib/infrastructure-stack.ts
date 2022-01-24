@@ -1,14 +1,20 @@
 import * as cdk from '@aws-cdk/core';
+import { CfnParameter } from '@aws-cdk/core';
 
 export class InfrastructureStack extends cdk.Stack {
+
+  public SshKeyName:string;
+  public ReplyMail:string;
+
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+    
+    this.SshKeyName = new CfnParameter(this,'sshKeyName', {
+      description:'Add the Keyname you want to use to access the Webserver'
+    }).valueAsString;
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    this.ReplyMail = new CfnParameter(this,'replyTo', {
+      description:'The Reply address for cognito'
+    }).valueAsString;
   }
 }

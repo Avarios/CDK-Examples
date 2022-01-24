@@ -4,11 +4,13 @@ import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, L
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
 import { AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolDomain, UserPoolEmail } from '@aws-cdk/aws-cognito';
+import { CfnOutput } from '@aws-cdk/core';
 
 export interface LoadBalancerProps {
     Vpc: Vpc,
     LoadBalancerSecurityGroup: SecurityGroup,
-    TargetInstance: Instance
+    TargetInstance: Instance,
+    ReplyMailAdress:string
 }
 
 export class AuthenticationLoadBalancer extends cdk.Construct {
@@ -34,11 +36,10 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             targets: [new InstanceTarget(props.TargetInstance)]
         });
 
-
         let cognitoUserPool = new UserPool(this, 'authWebUserPool', {
             accountRecovery: AccountRecovery.EMAIL_ONLY,
             mfa: Mfa.OPTIONAL,
-            email: UserPoolEmail.withCognito('ADD REPLY MAIL HERE'),
+            email: UserPoolEmail.withCognito(),
             selfSignUpEnabled: true,
             standardAttributes: {
                 email: { required: true },
@@ -65,8 +66,17 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
         let cognitoUserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
             userPool: cognitoUserPool,
             cognitoDomain: {
-                domainPrefix: 'auth-test'
+                domainPrefix: 'pwarmuth-auth-test'
             }
+        });
+
+        let authUrl =  cognitoUserPoolDomain.signInUrl(cognitoUserPoolClient,{
+            redirectUri:`https://${alb.loadBalancerDnsName}`
+        })
+
+        let authurlOutput = new CfnOutput(this,'authUrl', {
+            value:authUrl,
+            description: 'The Signin URL'
         });
 
 
