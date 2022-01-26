@@ -112,12 +112,8 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             })
         });
 
-        let authurlOutput = new CfnOutput(this, 'redirectUri', {
-            value: redirectURI,
-            description: 'The redirect URI'
-        });
 
-        let cognitoAuhtURL = new CfnOutput(this, 'authUrl', {
+        let cognitoAuthUrl = new CfnOutput(this, 'authUrl', {
             value: authUrl,
             description: 'The Signin URL'
         });
