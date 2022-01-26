@@ -19,5 +19,6 @@ let webserver = new Compute(stack, 'AuthWebserver', network.DefaultVpc, security
 new AuthenticationLoadBalancer(stack, 'AuthLoadBalancer', {
   LoadBalancerSecurityGroup: securityGroups.AlbSecurityGroup,
   Vpc: network.DefaultVpc, TargetInstance: webserver,
-  ReplyMailAdress: stack.ReplyMail
+  ReplyMailAdress: stack.ReplyMail,
+  certificateArn: stack.CertificateArn
 });

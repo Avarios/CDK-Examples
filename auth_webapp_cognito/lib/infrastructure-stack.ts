@@ -5,6 +5,7 @@ export class InfrastructureStack extends cdk.Stack {
 
   public SshKeyName:string;
   public ReplyMail:string;
+  public CertificateArn:string;
 
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -15,6 +16,10 @@ export class InfrastructureStack extends cdk.Stack {
 
     this.ReplyMail = new CfnParameter(this,'replyTo', {
       description:'The Reply address for cognito'
+    }).valueAsString;
+
+    this.CertificateArn = new CfnParameter(this,'certificateArn', {
+      description:'The SSL Certificate for the ALB'
     }).valueAsString;
   }
 }

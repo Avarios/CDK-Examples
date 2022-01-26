@@ -3,17 +3,24 @@ import { Vpc, SecurityGroup, Instance } from '@aws-cdk/aws-ec2';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
-import { AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolDomain, UserPoolEmail } from '@aws-cdk/aws-cognito';
-import { CfnOutput } from '@aws-cdk/core';
+import {
+    AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolDomain,
+    UserPoolEmail
+} from '@aws-cdk/aws-cognito';
+import { CfnOutput, RemovalPolicy } from '@aws-cdk/core';
 
 export interface LoadBalancerProps {
     Vpc: Vpc,
-    LoadBalancerSecurityGroup: SecurityGroup,
+    LoadBalancerSecurityGroup: SecurityGroup
+    ReplyMailAdress: string,
+    certificateArn: string,
     TargetInstance: Instance,
-    ReplyMailAdress:string
 }
 
 export class AuthenticationLoadBalancer extends cdk.Construct {
+
+    private AlbDnsName: string
+
     constructor(scope: cdk.Construct, id: string, props: LoadBalancerProps) {
         super(scope, id);
         let alb = new ApplicationLoadBalancer(this, 'webAppAlb', {
@@ -21,6 +28,8 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             securityGroup: props.LoadBalancerSecurityGroup,
             internetFacing: true
         });
+
+        this.AlbDnsName = alb.loadBalancerDnsName;
 
         let targetGroup = new ApplicationTargetGroup(scope, 'webappTarget', {
             targetType: TargetType.INSTANCE,
@@ -45,8 +54,17 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
                 email: { required: true },
                 givenName: { required: true },
                 familyName: { required: true }
-            }
+            },
+            // Only used for demo, it depends on your use case if you want to auto approve users
+            autoVerify: {
+                email: true,
+                phone: true
+            },
+            removalPolicy: RemovalPolicy.DESTROY
         });
+
+        let callBackURL = `https://${this.AlbDnsName}/oauth2/idpresponse`;
+        let redirectURI = `https://${this.AlbDnsName}`;
 
         let cognitoUserPoolClient = new UserPoolClient(this, 'authBackendClient', {
             userPool: cognitoUserPool,
@@ -55,12 +73,13 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
                 userPassword: true
             },
             oAuth: {
-                callbackUrls: [`https://${alb.loadBalancerDnsName}/oauth2/idpresponse`],
-                scopes: [OAuthScope.EMAIL],
+                callbackUrls: [callBackURL,redirectURI],
+                scopes: [OAuthScope.EMAIL, OAuthScope.OPENID],
                 flows: {
+                    implicitCodeGrant: true,
                     authorizationCodeGrant: true
                 }
-            }
+            },
         });
 
         let cognitoUserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
@@ -70,26 +89,42 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             }
         });
 
-        let authUrl =  cognitoUserPoolDomain.signInUrl(cognitoUserPoolClient,{
-            redirectUri:`https://${alb.loadBalancerDnsName}`
+        let authUrl = cognitoUserPoolDomain.signInUrl(cognitoUserPoolClient, {
+            redirectUri: redirectURI
         })
-
-        let authurlOutput = new CfnOutput(this,'authUrl', {
-            value:authUrl,
-            description: 'The Signin URL'
-        });
 
 
         alb.addListener('instanceListener', {
-            protocol: ApplicationProtocol.HTTP,
-            port:80,
+            protocol: ApplicationProtocol.HTTPS,
             open: true,
+            certificates: [{ certificateArn: props.certificateArn }],
             defaultAction: new AuthenticateCognitoAction({
                 userPool: cognitoUserPool,
                 userPoolClient: cognitoUserPoolClient,
                 userPoolDomain: cognitoUserPoolDomain,
-                next: ListenerAction.forward([targetGroup])
+                // You can forward your traffic here to the TargetGroup EC2 
+                // In this case we redircet it to an external website, just to show that it works
+                // For Example
+                next: ListenerAction.redirect({
+                    host: 'amazon.de',
+                    protocol: 'HTTPS'
+                })
             })
+        });
+
+        let authurlOutput = new CfnOutput(this, 'redirectUri', {
+            value: redirectURI,
+            description: 'The redirect URI'
+        });
+
+        let cognitoAuhtURL = new CfnOutput(this, 'authUrl', {
+            value: authUrl,
+            description: 'The Signin URL'
+        });
+
+        let dnsLb = new CfnOutput(this, 'LoadBalancer DNS', {
+            value: this.AlbDnsName,
+            description: 'The DNS URL for the ALB'
         });
 
     }
