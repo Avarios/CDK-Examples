@@ -76,7 +76,6 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
                 callbackUrls: [callBackURL,redirectURI],
                 scopes: [OAuthScope.EMAIL, OAuthScope.OPENID],
                 flows: {
-                    implicitCodeGrant: true,
                     authorizationCodeGrant: true
                 }
             },
@@ -103,12 +102,7 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
                 userPoolClient: cognitoUserPoolClient,
                 userPoolDomain: cognitoUserPoolDomain,
                 // You can forward your traffic here to the TargetGroup EC2 
-                // In this case we redircet it to an external website, just to show that it works
-                // For Example
-                next: ListenerAction.redirect({
-                    host: 'amazon.de',
-                    protocol: 'HTTPS'
-                })
+                next: ListenerAction.forward([targetGroup])
             })
         });
 
