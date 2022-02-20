@@ -17,7 +17,7 @@ export class Database extends Construct {
   constructor(parent: Stack, name: string, props: DatabaseProps) {
     super(parent, name);
 
-    const databaseUsername = 'syscdk';
+    const databaseUsername = 'piwigo-admin';
 
     // Database Credentials
     const databaseCredentialsSecret = new Secret(this, 'DBCredentialsSecret', {
@@ -46,7 +46,7 @@ export class Database extends Construct {
     });
 
     // Database
-    const rdsInstance = new DatabaseInstance(this, 'DBInstance', {
+    const rdsInstance = new DatabaseInstance(this, 'piwigo-database', {
       engine: DatabaseInstanceEngine.mysql({
         version: MysqlEngineVersion.VER_8_0_26
       }),
@@ -80,15 +80,6 @@ export class Database extends Construct {
     });
 
     databaseCredentialsSecret.secretValue
-    //const rdsInstanceReplication = new rds.DatabaseInstanceReadReplica(this, 'DBInstanceReplication', {
-    //  sourceDatabaseInstance: rdsInstance,
-    //  instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.SMALL),
-    //  vpc: vpc,
-    //  vpcSubnets: { onePerAz: true, subnetGroupName: "database" },
-    //  removalPolicy: cdk.RemovalPolicy.DESTROY,
-    //  deletionProtection: false,
-    //  securityGroups: [dbConnectionGroup]
-    //});
     databaseCredentialsSecret.grantRead(props.accessingEc2);
     rdsInstance.grantConnect(props.accessingEc2);
   }

@@ -3,24 +3,33 @@ import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { PiwigoInfraStack } from '../lib/piwigo_infra-stack';
 import { Database } from '../lib/database-stack';
+import { Compute } from '../lib/compute';
+import { LoadBalancer } from '../lib/loadBalancer';
+import { NetworkStack } from '../lib/networkStack';
+import { SecurityGroups } from '../lib/securityGroups';
+
 
 const app = new cdk.App();
-let piwigoStack = new PiwigoInfraStack(app, 'PiwigoInfraStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
-
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
-
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-}
-);
-new Database(piwigoStack, 'PiwigoDatabaseStack', piwigoStack.stackProps);
-
+let piwigoStack = new PiwigoInfraStack(app, 'PiwigoInfraStack');
+let networkStack = new NetworkStack(piwigoStack, 'piwigo-network');
+let securityGroupStack = new SecurityGroups(piwigoStack, 'pwiwigo-sg', networkStack.DefaultVpc);
+let compute = new Compute(piwigoStack, 'piwigo-compute', {
+  InstanceSecurityGroup: securityGroupStack.InstanceSecurityGroup,
+  InstanceSshKeyName: piwigoStack.SshKeyName,
+  InstanceSubnetGroupName: networkStack.WebserverSubnetName,
+  Vpc: networkStack.DefaultVpc
+});
+let loadBalancer = new LoadBalancer(piwigoStack, 'piwigo-loadbalancer', {
+  CertificateArn: piwigoStack.CertificateArn,
+  LoadBalancerSecurityGroup: securityGroupStack.AlbSecurityGroup,
+  TargetInstance: compute.WebServer,
+  Vpc: networkStack.DefaultVpc
+});
+let database = new Database(piwigoStack, 'piwigo-db', {
+  accessingEc2: compute.WebServer,
+  ec2Role: compute.WebServer.role,
+  rdsSecurityGroup: securityGroupStack.DatabaseSecurityGroup,
+  subnetGroupName: networkStack.DatabaseSubnetName,
+  vpc: networkStack.DefaultVpc
+})
 
