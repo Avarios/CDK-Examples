@@ -54,7 +54,7 @@ export class Compute extends Construct {
             InitCommand.shellCommand('sudo systemctl enable docker.service'),
             InitCommand.shellCommand('sudo systemctl start docker.service'),
             InitCommand.shellCommand('sudo wget https://github.com/Ahrimaan/CDK-Examples/blob/main/lychee/res/docker-compose.yaml -P /home/ec2-user/'),
-            InitCommand.shellCommand('sudo /usr/local/bin/docker-compose /home/ec2-user/docker-compose.yaml up -d')
+            InitCommand.shellCommand('sudo /usr/bin/docker-compose -f /home/ec2-user/docker-compose.yaml up -d')
         )
     }
 }
