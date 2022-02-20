@@ -24,7 +24,13 @@ export class LoadBalancer extends Construct {
       port: 80,
       protocol: ApplicationProtocol.HTTP,
       vpc: props.Vpc,
-      targetType: TargetType.INSTANCE
+      targetType: TargetType.INSTANCE,
+      healthCheck:{
+        enabled:true,
+        path:'/',
+        port:'80',
+        protocol: Protocol.HTTP
+      }
     });
     targetGroup.addTarget(new InstanceTarget(props.TargetInstance));
 

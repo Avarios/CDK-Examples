@@ -1,6 +1,6 @@
 import { Stack, StackProps, Construct, CfnParameter } from '@aws-cdk/core';
 
-export class PiwigoInfraStack extends Stack {
+export class LycheeStack extends Stack {
 
   public SshKeyName: string;
   public CertificateArn: string;

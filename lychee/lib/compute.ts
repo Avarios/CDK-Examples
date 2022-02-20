@@ -29,9 +29,10 @@ export class Compute extends Construct {
             init: this.getShellCommandsForPiwigo(),
             blockDevices: [
                 {
-                    deviceName: '/dev/sda',
+                    deviceName: '/dev/sda1',
                     volume: BlockDeviceVolume.ebs(Size.gibibytes(400).toGibibytes(), {
-                        volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
+                        volumeType: EbsDeviceVolumeType.GP3,
+                        iops:3000
                     })
                 }
             ],
@@ -47,14 +48,12 @@ export class Compute extends Construct {
         return CloudFormationInit.fromElements(
             InitCommand.shellCommand('sudo yum update -y'),
             InitCommand.shellCommand('sudo yum install docker -y'),
-            InitCommand.shellCommand('wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)'),
-            InitCommand.shellCommand('sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose'),
-            InitCommand.shellCommand('sudo chmod -v +x /usr/local/bin/docker-compose'),
-            InitCommand.shellCommand('sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'),
+            InitCommand.shellCommand('sudo pip install docker-compose'),
             InitCommand.shellCommand('sudo systemctl enable docker.service'),
             InitCommand.shellCommand('sudo systemctl start docker.service'),
             InitCommand.shellCommand('sudo mkdir lychee'),
             InitCommand.shellCommand('cd lychee'),
+            InitCommand.shellCommand('wget https://github.com/Ahrimaan/CDK-Examples/blob/main/lychee/res/docker-compose.yaml'),
             InitCommand.shellCommand('sudo docker-compose up -d')
         )
     }
