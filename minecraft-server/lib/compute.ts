@@ -6,7 +6,7 @@ import {
 import { Size } from '@aws-cdk/core';
 
 export class Compute extends cdk.Construct {
-
+// https://www.linkedin.com/pulse/setup-minecraft-server-java-edition-aws-ec2-keran-mckenzie/?trk=articles_directory
     public readonly WebServer: Instance;
     constructor(scope: cdk.Construct, id: string, vpc: Vpc, securityGroup: SecurityGroup, subnetGroupName: string, sshKeyName: string) {
         super(scope, id);
