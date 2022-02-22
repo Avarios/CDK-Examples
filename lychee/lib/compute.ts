@@ -4,6 +4,7 @@ import {
     SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit
 } from '@aws-cdk/aws-ec2';
 import { Size } from '@aws-cdk/core';
+import { ManagedPolicy } from '@aws-cdk/aws-iam';
 
 export interface ComputeProps {
     Vpc: Vpc,
@@ -41,6 +42,7 @@ export class Compute extends Construct {
             securityGroup: props.InstanceSecurityGroup,
             keyName: props.InstanceSshKeyName
         });
+        this.WebServer.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'));
     }
 
     private getShellCommandsForPiwigo(): CloudFormationInit {
@@ -53,8 +55,8 @@ export class Compute extends Construct {
             InitCommand.shellCommand('sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'),
             InitCommand.shellCommand('sudo systemctl enable docker.service'),
             InitCommand.shellCommand('sudo systemctl start docker.service'),
-            InitCommand.shellCommand('sudo wget https://github.com/Ahrimaan/CDK-Examples/blob/main/lychee/res/docker-compose.yaml -P /home/ec2-user/'),
-            InitCommand.shellCommand('sudo /usr/bin/docker-compose -f /home/ec2-user/docker-compose.yaml up -d')
+            InitCommand.shellCommand('sudo wget https://raw.githubusercontent.com/Ahrimaan/CDK-Examples/main/lychee/res/docker-compose.yaml -P /home/ec2-user/'),
+            InitCommand.shellCommand('sudo docker-compose -f /home/ec2-user/docker-compose.yaml up -d')
         )
     }
 }

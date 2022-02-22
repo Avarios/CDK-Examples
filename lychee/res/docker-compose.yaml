@@ -27,7 +27,7 @@ services:
     image: lycheeorg/lychee
     container_name: lychee
     ports:
-      - 90:80
+      - 80:80
     volumes:
       - ./lychee/conf:/conf
       - ./lychee/uploads:/uploads
