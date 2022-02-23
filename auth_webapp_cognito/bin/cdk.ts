@@ -14,11 +14,15 @@ const stack = new InfrastructureStack(app, 'AuthenticationDemoStack', {
 
 let network = new NetworkStack(stack, 'AuthWebApp');
 let securityGroups = new SecurityGroups(stack, 'AuthSecurityGroups', network.DefaultVpc);
-let webserver = new Compute(stack, 'AuthWebserver', network.DefaultVpc, securityGroups.InstanceSecurityGroup,
-  network.InstanceSubnetGroupName, stack.SshKeyName).WebServer
+let webserver = new Compute(stack, 'AuthWebserver', {
+  InstanceSecurityGroup: securityGroups.InstanceSecurityGroup,
+  InstanceSshKeyName: stack.SshKeyName,
+  InstanceSubnetGroupName: network.InstanceSubnetGroupName,
+  Vpc: network.DefaultVpc
+});
 new AuthenticationLoadBalancer(stack, 'AuthLoadBalancer', {
   LoadBalancerSecurityGroup: securityGroups.AlbSecurityGroup,
-  Vpc: network.DefaultVpc, TargetInstance: webserver,
+  Vpc: network.DefaultVpc, TargetInstance: webserver.WebServerInstance,
   ReplyMailAdress: stack.ReplyMail,
   certificateArn: stack.CertificateArn
 });

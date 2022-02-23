@@ -20,5 +20,19 @@ Todo:
 - Setup Mysql RDS
 - EC2 SSH Key
 
+## Lychee
+Another Photo hosting Software, which is more minimalistic but faster than Piwigo.
+The Server is Hosted on an EC2 , running Docker with Docker-compose and two container, Database and Webserver
+There will be an example with Fargage in the Future
+
+What it does:
+- Setup VPC
+- Setup Security Groups
+- Setup ALB
+- Import SSL Certificate (When already uploaded)
+- Setup EC2
+- install all scripts inside the EC2
+
+
 
 

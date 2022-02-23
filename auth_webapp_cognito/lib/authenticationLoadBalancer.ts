@@ -1,10 +1,10 @@
 import * as cdk from '@aws-cdk/core';
 import { Vpc, SecurityGroup, Instance } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType, UnauthenticatedAction } from '@aws-cdk/aws-elasticloadbalancingv2';
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
 import {
-    AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolDomain,
+    AccountRecovery, CfnIdentityPool, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider, UserPoolDomain,
     UserPoolEmail
 } from '@aws-cdk/aws-cognito';
 import { CfnOutput, RemovalPolicy } from '@aws-cdk/core';
@@ -47,13 +47,11 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
 
         let cognitoUserPool = new UserPool(this, 'authWebUserPool', {
             accountRecovery: AccountRecovery.EMAIL_ONLY,
-            mfa: Mfa.OPTIONAL,
+            mfa: Mfa.OFF,
             email: UserPoolEmail.withCognito(),
             selfSignUpEnabled: true,
             standardAttributes: {
-                email: { required: true },
-                givenName: { required: true },
-                familyName: { required: true }
+                email: { required: true }
             },
             // Only used for demo, it depends on your use case if you want to auto approve users
             autoVerify: {
@@ -63,29 +61,33 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             removalPolicy: RemovalPolicy.DESTROY
         });
 
-        let callBackURL = `https://${this.AlbDnsName}/oauth2/idpresponse`;
-        let redirectURI = `https://${this.AlbDnsName}`;
+        let callBackURL = `https://${this.AlbDnsName}/oauth2/idpresponse/`;
+        let redirectURI = `https://${this.AlbDnsName}/`;
 
         let cognitoUserPoolClient = new UserPoolClient(this, 'authBackendClient', {
             userPool: cognitoUserPool,
+            supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
             generateSecret: true,
             authFlows: {
                 userPassword: true
             },
             oAuth: {
-                callbackUrls: [callBackURL,redirectURI],
-                scopes: [OAuthScope.EMAIL, OAuthScope.OPENID],
+                callbackUrls: [callBackURL, redirectURI],
+                scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
                 flows: {
                     authorizationCodeGrant: true
                 }
             },
+            userPoolClientName: 'authBackendUserpoolClient',
+            disableOAuth: false
         });
 
         let cognitoUserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
             userPool: cognitoUserPool,
             cognitoDomain: {
-                domainPrefix: 'pwarmuth-auth-test'
-            }
+                domainPrefix: 'pwarmuth-auth-test',
+
+            },
         });
 
         let authUrl = cognitoUserPoolDomain.signInUrl(cognitoUserPoolClient, {
@@ -98,10 +100,10 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             open: true,
             certificates: [{ certificateArn: props.certificateArn }],
             defaultAction: new AuthenticateCognitoAction({
+                onUnauthenticatedRequest: UnauthenticatedAction.AUTHENTICATE,
                 userPool: cognitoUserPool,
                 userPoolClient: cognitoUserPoolClient,
                 userPoolDomain: cognitoUserPoolDomain,
-                // You can forward your traffic here to the TargetGroup EC2 
                 next: ListenerAction.forward([targetGroup])
             })
         });
