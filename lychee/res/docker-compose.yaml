@@ -18,7 +18,7 @@ services:
     expose: 
       - 3306
     volumes:
-      - mysql:/var/lib/mysql
+      - ./lycheedata/mysql:/var/lib/mysql
     networks:
       - lychee
     restart: unless-stopped
@@ -30,8 +30,8 @@ services:
       - 80:80
     volumes:
       - ./lychee/conf:/conf
-      - ./lychee/uploads:/uploads
-      - ./lychee/sym:/sym
+      - ./lycheedata/uploads:/uploads
+      - ./lycheedata/sym:/sym
     networks:
       - lychee
     environment:
@@ -79,6 +79,3 @@ services:
 
 networks:
   lychee:
-
-volumes:
-  mysql:
