@@ -18,7 +18,7 @@ services:
     expose: 
       - 3306
     volumes:
-      - mysql:/var/lib/mysql
+      - /home/ec2-user/lycheedata/mysql:/var/lib/mysql
     networks:
       - lychee
     restart: unless-stopped
@@ -29,9 +29,9 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./lychee/conf:/conf
-      - ./lychee/uploads:/uploads
-      - ./lychee/sym:/sym
+      - /home/ec2-user/lycheedata/conf:/conf
+      - /home/ec2-user/lycheedata/uploads:/uploads
+      - /home/ec2-user/lycheedata/sym:/sym
     networks:
       - lychee
     environment:
@@ -79,6 +79,3 @@ services:
 
 networks:
   lychee:
-
-volumes:
-  mysql:
