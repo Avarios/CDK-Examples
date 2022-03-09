@@ -4,8 +4,8 @@ import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, L
 import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
 import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
 import {
-    AccountRecovery, CfnIdentityPool, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider, UserPoolDomain,
-    UserPoolEmail
+    AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider,
+    UserPoolDomain, UserPoolEmail
 } from '@aws-cdk/aws-cognito';
 import { CfnOutput, RemovalPolicy } from '@aws-cdk/core';
 
