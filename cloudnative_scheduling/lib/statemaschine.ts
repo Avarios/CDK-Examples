@@ -46,21 +46,10 @@ export class StateMaschine extends Construct {
             .when(falseCondition, waitJob.next(appPollJob));
            
         let waitForDb = checkStatusJob.when(trueCondition,new Succeed(this,'stateSuccess'))
-            .when(falseCondition, waitJob.next(appPollJob));
+            .when(falseCondition, waitJob.next(dbPollJob));
 
-
-        appShutDownJob.next(waitForApp).next(dbShutdownJob).next(waitForDb)
-
-
-
-        appShutDownJob.next(appPollJob);
-        dbShutdownJob.next(dbPollJob);
-
-        waitAfterDbCheck.next(dbPollJob);
-        waitAfterAppCheck.next(appPollJob);
-
-        ifDb.when(trueCondition, success).when(falseCondition, waitAfterDbCheck);
-        ifApp.when(trueCondition,dbShutdownJob).when(falseCondition,waitAfterAppCheck);
+        appShutDownJob.next(waitForApp);
+        dbShutdownJob.next(waitForDb);
 
         new StateMachine(this,'schedulestatemachine', {
             definition:appShutDownJob,

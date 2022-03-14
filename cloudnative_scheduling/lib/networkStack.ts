@@ -32,6 +32,7 @@ export class NetworkStack extends cdk.Construct {
 
     this.ApplicationSubnetName = applicationSubnetName;
     this.DatabaseSubnetName = databaseSubnetName;
+    this.DefaultVpc = vpc
 
   }
 }
