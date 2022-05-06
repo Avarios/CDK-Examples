@@ -27,7 +27,7 @@ exports.handler = async (event, context, callback) => {
         };
         callback(null, response);
     }
-    // I asume, when the server is not responding, the server is in shutdown state
+    // I assume, when the server is not responding, the server is in shutdown state
     catch (error) {
         const response = {
             "statusCode": 200,

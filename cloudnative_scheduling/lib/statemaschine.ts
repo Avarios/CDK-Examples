@@ -10,18 +10,18 @@ export interface StateMachineProps {
     ShutdownAppFunction:Function
 }
 
-export class StateMaschine extends Construct {
+export class StepState extends Construct {
     constructor(parent: Stack, id: string, props:StateMachineProps) {
         super(parent, id);
         let trueCondition = Condition.booleanEqualsJsonPath('$.result', 'true');
         let falseCondition = Condition.booleanEqualsJsonPath('$.result', 'true');
 
-        let dbPollJob = new LambdaInvoke(this, 'invokedbpoll', {
+        let dbPollJob = new LambdaInvoke(this, 'invokeDbpoll', {
             lambdaFunction: props.DbPollFunction,
             outputPath: '$.result'
         });
 
-        let appPollJob = new LambdaInvoke(this, 'invokeapppoll', {
+        let appPollJob = new LambdaInvoke(this, 'invokeAppPoll', {
             lambdaFunction: props.AppPollFunction,
             outputPath: '$.result'
         });

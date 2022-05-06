@@ -1,10 +1,10 @@
-import { Stack, Construct } from '@aws-cdk/core';
 import {
     Vpc,  Instance, InstanceType, InstanceClass, InstanceSize, MachineImage,
     SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit
-} from '@aws-cdk/aws-ec2';
-import { Size } from '@aws-cdk/core';
-import { ManagedPolicy } from '@aws-cdk/aws-iam';
+} from 'aws-cdk-lib/aws-ec2';
+import { ManagedPolicy } from 'aws-cdk-lib/aws-iam';
+import { Size,Stack } from 'aws-cdk-lib/core';
+import { Construct } from 'constructs';
 
 export interface ComputeProps {
     Vpc: Vpc,
@@ -27,7 +27,7 @@ export class Compute extends Construct {
             }),
             vpc: props.Vpc,
             instanceName: 'lycheeDocker',
-            init: this.getShellCommandsForPiwigo(),
+            init: this.getShellCommands(),
             blockDevices: [
                 {
                     deviceName: '/dev/sda1',
@@ -45,7 +45,7 @@ export class Compute extends Construct {
         this.WebServer.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore'));
     }
 
-    private getShellCommandsForPiwigo(): CloudFormationInit {
+    private getShellCommands(): CloudFormationInit {
         return CloudFormationInit.fromElements(
             InitCommand.shellCommand('sudo yum update -y'),
             InitCommand.shellCommand('sudo yum install docker -y'),
