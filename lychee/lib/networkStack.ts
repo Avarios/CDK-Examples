@@ -1,10 +1,11 @@
-import {Stack,Construct} from '@aws-cdk/core';
-import { Vpc, SubnetType } from '@aws-cdk/aws-ec2';
+import { Stack } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { Vpc, SubnetType } from 'aws-cdk-lib/aws-ec2';
 
 export class NetworkStack extends Construct {
 
   public readonly DefaultVpc: Vpc;
-  public readonly WebserverSubnetName = 'lyheeWeb';
+  public readonly WebserverSubnetName = 'lycheeWeb';
   public readonly PublicSubnetName = 'lycheePublic';
 
   constructor(parent: Stack, id: string) {

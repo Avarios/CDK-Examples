@@ -1,5 +1,6 @@
-import { Stack, Construct } from '@aws-cdk/core';
-import { Peer, Port, SecurityGroup, Vpc } from '@aws-cdk/aws-ec2';
+import { Stack } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { Peer, Port, SecurityGroup, Vpc } from 'aws-cdk-lib/aws-ec2';
 
 export class SecurityGroups extends Construct {
 

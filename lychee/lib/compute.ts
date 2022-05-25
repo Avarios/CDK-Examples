@@ -3,7 +3,7 @@ import {
     SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit
 } from 'aws-cdk-lib/aws-ec2';
 import { ManagedPolicy } from 'aws-cdk-lib/aws-iam';
-import { Size,Stack } from 'aws-cdk-lib/core';
+import { Size,Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 export interface ComputeProps {

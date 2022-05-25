@@ -1,4 +1,5 @@
-import { Stack, StackProps, Construct, CfnParameter } from '@aws-cdk/core';
+import { Stack, StackProps, CfnParameter } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class LycheeStack extends Stack {
 

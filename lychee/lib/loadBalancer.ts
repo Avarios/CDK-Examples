@@ -1,7 +1,9 @@
-import { Stack, Construct } from '@aws-cdk/core';
-import { Vpc, SecurityGroup, Instance } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, Protocol, TargetType } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
+import { Stack } from 'aws-cdk-lib/core';
+import { Construct } from 'constructs'
+import { Vpc, SecurityGroup, Instance } from 'aws-cdk-lib/aws-ec2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, Protocol, TargetType } 
+  from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { InstanceTarget } from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
 
 
 export interface LoadBalancerProps {
