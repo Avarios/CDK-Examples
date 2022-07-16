@@ -6,14 +6,15 @@ import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { StringParameter } from 'aws-cdk-lib/aws-ssm';
 import { DatabaseInstance, DatabaseInstanceEngine, MysqlEngineVersion, Credentials } 
   from 'aws-cdk-lib/aws-rds';
-import { IRole, PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { IRole, PolicyStatement, Effect, IGrantable } from 'aws-cdk-lib/aws-iam';
+import { Service } from '@aws-cdk/aws-apprunner-alpha';
 
 export interface DatabaseProps {
   vpc: Vpc;
-  ec2Role: IRole;
   rdsSecurityGroup: SecurityGroup;
   subnetGroupName: string;
-  accessingEc2: Instance
+  containerRole: IRole;
+  containerService: Service;
 }
 
 export class Database extends Construct {
@@ -36,7 +37,7 @@ export class Database extends Construct {
     });
 
     const statement = new PolicyStatement({
-      principals: [props.ec2Role],
+      principals: [props.containerRole],
       actions: ["secretsmanager:GetSecretValue"],
       resources: ["*"],
       effect: Effect.ALLOW
@@ -83,7 +84,7 @@ export class Database extends Construct {
     });
 
     databaseCredentialsSecret.secretValue
-    databaseCredentialsSecret.grantRead(props.accessingEc2);
+    databaseCredentialsSecret.grantRead(props.containerService);
     rdsInstance.grantConnect(props.accessingEc2);
   }
 }

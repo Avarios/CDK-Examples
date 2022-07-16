@@ -13,11 +13,5 @@ export class LycheeStack extends Stack {
       type: "String",
       description: "Keyname for accesing trough the instance trough SSH"
     }).valueAsString;
-
-    this.CertificateArn = new CfnParameter(this, 'certificateArn', {
-      type: "String",
-      description: "Insert the ARN for the SSL Certificate Load Balancer"
-    }).valueAsString;
-
   }
 }
