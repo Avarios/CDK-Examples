@@ -1,0 +1,4 @@
+com.amazonaws.services.cognitoidentity.model.InvalidIdentityPoolConfigurationException: Invalid identity pool configuration. Check assigned IAM roles for this pool. (Service: AmazonCognitoIdentity; Status Code: 400; Error Code: InvalidIdentityPoolConfigurationException; Request ID: f2bbb5df-160b-48c5-a14d-8d2f8ce50f59; Proxy: null)
+
+
+https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cognito-auth.html#es-cognito-auth-troubleshooting
