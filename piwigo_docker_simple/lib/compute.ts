@@ -22,7 +22,7 @@ export class Compute extends Construct {
         super(parent, id);
 
         this.WebServer = new Instance(this, 'piwigoec2', {
-            instanceType: InstanceType.of(InstanceClass.BURSTABLE3, InstanceSize.MEDIUM),
+            instanceType: InstanceType.of(InstanceClass.COMPUTE6_GRAVITON2, InstanceSize.SMALL),
             machineImage: MachineImage.latestAmazonLinux({
                 generation: AmazonLinuxGeneration.AMAZON_LINUX_2
             }),
@@ -30,7 +30,7 @@ export class Compute extends Construct {
             instanceName: 'piwigoweb',
             blockDevices: [
                 {
-                    deviceName: '/dev/sdh',
+                    deviceName: '/dev/sda1',
                     volume: BlockDeviceVolume.ebs(Size.gibibytes(200).toGibibytes(), {
                         volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
                     })
