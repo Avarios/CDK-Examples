@@ -1,11 +1,12 @@
-import { Stack, Size } from 'aws-cdk-lib/core';
+import { Stack, Size } from 'aws-cdk-lib';
 import {
     Vpc,  Instance, InstanceType, InstanceClass, InstanceSize, MachineImage,
     SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit
 } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 import { readFileSync } from 'fs';
-
+import { ManagedPolicy } from 'aws-cdk-lib/aws-iam'
+import * as path from 'path';
 
 export interface ComputeProps {
     Vpc: Vpc,
@@ -42,8 +43,9 @@ export class Compute extends Construct {
             securityGroup: props.InstanceSecurityGroup,
             keyName: props.InstanceSshKeyName
         });
+        this.WebServer.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore') )
 
-        let userdata = readFileSync('../res/startup.sh','utf-8');
+        let userdata = readFileSync(path.resolve(path.join(__dirname, '../res/startup.sh')),'utf-8');
         this.WebServer.addUserData(userdata);
     }
 }

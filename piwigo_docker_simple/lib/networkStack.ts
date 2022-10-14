@@ -1,4 +1,4 @@
-import { Stack } from "aws-cdk-lib/core";
+import { Stack } from "aws-cdk-lib";
 import { Vpc, SubnetType } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 
@@ -15,7 +15,7 @@ export class NetworkStack extends Construct {
       subnetConfiguration: [
         {
           name: this.WebserverSubnetName,
-          subnetType: SubnetType.PRIVATE_WITH_NAT,
+          subnetType: SubnetType.PRIVATE_WITH_EGRESS,
           cidrMask: 24,
         },
         {

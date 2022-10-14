@@ -1,12 +1,13 @@
-import { Stack, StackProps, Construct, CfnParameter } from '@aws-cdk/core';
+import { Stack, StackProps, CfnParameter } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class PiwigoInfraStack extends Stack {
 
   public SshKeyName: string;
   public CertificateArn: string;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+  constructor(construct: Construct, id: string, props?: StackProps) {
+    super(construct, id, props);
 
     this.SshKeyName = new CfnParameter(this, 'keyname', {
       type: "String",

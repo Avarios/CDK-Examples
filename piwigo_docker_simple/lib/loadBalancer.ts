@@ -1,4 +1,4 @@
-import { Stack } from "aws-cdk-lib/core";
+import { Stack } from "aws-cdk-lib";
 import { Vpc, SecurityGroup, Instance } from "aws-cdk-lib/aws-ec2";
 import {
   ApplicationLoadBalancer,

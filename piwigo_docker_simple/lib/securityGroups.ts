@@ -1,4 +1,4 @@
-import { Stack } from 'aws-cdk-lib/core';
+import { Stack } from 'aws-cdk-lib';
 import { Peer, Port, SecurityGroup, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 
@@ -6,7 +6,6 @@ export class SecurityGroups extends Construct {
 
     public readonly AlbSecurityGroup: SecurityGroup;
     public readonly InstanceSecurityGroup: SecurityGroup
-    public readonly DatabaseSecurityGroup: SecurityGroup
 
     constructor(parent: Stack, id: string, vpc: Vpc) {
         super(parent, id);
@@ -21,10 +20,5 @@ export class SecurityGroups extends Construct {
             allowAllOutbound: true
         });
         this.InstanceSecurityGroup.addIngressRule(this.AlbSecurityGroup, Port.tcp(80), 'Allow Port 80 from ALB to Instance');
-        this.DatabaseSecurityGroup = new SecurityGroup(parent, 'db-securitygroup', {
-            vpc,
-            allowAllOutbound: true
-        });
-        this.DatabaseSecurityGroup.addIngressRule(this.InstanceSecurityGroup, Port.tcp(3306), 'Allow traffic from Webserver to Database');
     }
 }
