@@ -1,7 +1,7 @@
 import { Stack, Size } from 'aws-cdk-lib';
 import {
     Vpc,  Instance, InstanceType, InstanceClass, InstanceSize, MachineImage,
-    SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit
+    SecurityGroup, BlockDeviceVolume, EbsDeviceVolumeType, AmazonLinuxGeneration, InitCommand, CloudFormationInit, AmazonLinuxCpuType
 } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 import { readFileSync } from 'fs';
@@ -23,15 +23,18 @@ export class Compute extends Construct {
         super(parent, id);
 
         this.WebServer = new Instance(this, 'piwigoec2', {
-            instanceType: InstanceType.of(InstanceClass.COMPUTE6_GRAVITON2, InstanceSize.SMALL),
-            machineImage: MachineImage.latestAmazonLinux({
-                generation: AmazonLinuxGeneration.AMAZON_LINUX_2
-            }),
+            instanceType: InstanceType.of(InstanceClass.BURSTABLE4_GRAVITON, InstanceSize.SMALL),
+            machineImage: MachineImage.latestAmazonLinux(
+                {
+                    cpuType: AmazonLinuxCpuType.ARM_64,
+                    generation:AmazonLinuxGeneration.AMAZON_LINUX_2
+                }
+            ),
             vpc: props.Vpc,
             instanceName: 'piwigoweb',
             blockDevices: [
                 {
-                    deviceName: '/dev/sda1',
+                    deviceName: '/dev/xvda',
                     volume: BlockDeviceVolume.ebs(Size.gibibytes(200).toGibibytes(), {
                         volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
                     })

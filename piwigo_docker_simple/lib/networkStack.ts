@@ -5,7 +5,6 @@ import { Construct } from "constructs";
 export class NetworkStack extends Construct {
   public readonly DefaultVpc: Vpc;
   public readonly WebserverSubnetName = "PiwigoWebServerSubnet";
-  public readonly DatabaseSubnetName = "PiwigoDBServerSubnet";
 
   constructor(parent: Stack, id: string) {
     super(parent, id);
@@ -19,17 +18,12 @@ export class NetworkStack extends Construct {
           cidrMask: 24,
         },
         {
-          name: this.DatabaseSubnetName,
-          subnetType: SubnetType.PRIVATE_ISOLATED,
-          cidrMask: 28,
-        },
-        {
           name: "PiwigoNAT",
           subnetType: SubnetType.PUBLIC,
           cidrMask: 28,
         },
       ],
-      maxAzs: 2,
+      maxAzs: 2
     });
   }
 }
