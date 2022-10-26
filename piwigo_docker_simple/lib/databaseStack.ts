@@ -30,6 +30,9 @@ export class DatabaseStack extends Construct {
       },
       defaultDatabaseName: "piwigo",
       securityGroups: [dbSecurityGroup],
+      scaling: {
+        maxCapacity:1
+      }
     });
 
     new CfnOutput(this, "dbSecret", {
