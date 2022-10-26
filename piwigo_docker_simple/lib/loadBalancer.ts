@@ -1,4 +1,4 @@
-import { Stack } from "aws-cdk-lib";
+import { CfnOutput, Stack } from "aws-cdk-lib";
 import { Vpc, SecurityGroup, Instance } from "aws-cdk-lib/aws-ec2";
 import {
   ApplicationLoadBalancer,
@@ -19,13 +19,13 @@ export interface LoadBalancerProps {
 export class LoadBalancer extends Construct {
   constructor(parent: Stack, id: string, props: LoadBalancerProps) {
     super(parent, id);
-    let alb = new ApplicationLoadBalancer(parent, "piwigoAlb", {
+    const alb = new ApplicationLoadBalancer(parent, "piwigoAlb", {
       vpc: props.Vpc,
       internetFacing: true,
       securityGroup: props.LoadBalancerSecurityGroup,
     });
 
-    let targetGroup = new ApplicationTargetGroup(parent, "piwigoTargetGroup", {
+    const targetGroup = new ApplicationTargetGroup(parent, "piwigoTargetGroup", {
       port: 80,
       protocol: ApplicationProtocol.HTTP,
       vpc: props.Vpc,
@@ -43,5 +43,10 @@ export class LoadBalancer extends Construct {
       protocol: ApplicationProtocol.HTTPS,
       defaultTargetGroups: [targetGroup],
     });
+
+    new CfnOutput(this,'ALB DNS Name', {
+      value: alb.loadBalancerDnsName,
+      description: 'DNS Adress ALB'
+    })
   }
 }

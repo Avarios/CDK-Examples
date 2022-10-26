@@ -1,4 +1,4 @@
-import { Stack, StackProps, CfnParameter } from 'aws-cdk-lib';
+import { Stack, StackProps, CfnParameter, Tags } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 export class PiwigoInfraStack extends Stack {
@@ -8,6 +8,10 @@ export class PiwigoInfraStack extends Stack {
 
   constructor(construct: Construct, id: string, props?: StackProps) {
     super(construct, id, props);
+
+    Tags.of(this).add('stack', this.stackName, {
+      applyToLaunchedInstances: true
+    })
 
     this.SshKeyName = new CfnParameter(this, 'keyname', {
       type: "String",

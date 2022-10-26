@@ -5,7 +5,8 @@ import { Construct } from 'constructs';
 export class SecurityGroups extends Construct {
 
     public readonly AlbSecurityGroup: SecurityGroup;
-    public readonly InstanceSecurityGroup: SecurityGroup
+    public readonly InstanceSecurityGroup: SecurityGroup;
+    public readonly DatabaseSecurityGroup: SecurityGroup;
 
     constructor(parent: Stack, id: string, vpc: Vpc) {
         super(parent, id);
@@ -20,5 +21,11 @@ export class SecurityGroups extends Construct {
             allowAllOutbound: true
         });
         this.InstanceSecurityGroup.addIngressRule(this.AlbSecurityGroup, Port.tcp(80), 'Allow Port 80 from ALB to Instance');
+        this.DatabaseSecurityGroup = new SecurityGroup(parent,'db-securityGroup', {
+            vpc,
+            allowAllOutbound: false
+        })
+        this.DatabaseSecurityGroup.addIngressRule(this.InstanceSecurityGroup,Port.tcp(3306), 'Allow EC2 to Database');
+        this.DatabaseSecurityGroup.addEgressRule(this.InstanceSecurityGroup,Port.tcp(3306), 'Allow Database to EC2');
     }
 }
