@@ -35,7 +35,7 @@ export class Compute extends Construct {
             blockDevices: [
                 {
                     deviceName: '/dev/xvda',
-                    volume: BlockDeviceVolume.ebs(Size.gibibytes(200).toGibibytes(), {
+                    volume: BlockDeviceVolume.ebs(Size.gibibytes(210).toGibibytes(), {
                         volumeType: EbsDeviceVolumeType.GENERAL_PURPOSE_SSD
                     })
                 }
@@ -48,7 +48,7 @@ export class Compute extends Construct {
         });
         this.WebServer.role.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore') )
 
-        let userdata = readFileSync(path.resolve(path.join(__dirname, '../res/startup.sh')),'utf-8');
+        const userdata = readFileSync(path.resolve(path.join(__dirname, '../res/startup.sh')),'utf-8');
         this.WebServer.addUserData(userdata);
     }
 }

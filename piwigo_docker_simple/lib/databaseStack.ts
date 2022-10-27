@@ -23,6 +23,7 @@ export class DatabaseStack extends Construct {
       }),
       credentials: Credentials.fromGeneratedSecret("piwigoadmin", {
         secretName: "piwigo",
+        excludeCharacters:',%&$§"'
       }),
       vpc,
       vpcSubnets: {
@@ -36,9 +37,15 @@ export class DatabaseStack extends Construct {
     });
 
     new CfnOutput(this, "dbSecret", {
-      value: dbCluster.secret?.secretValue.toString() ?? "NoSecret",
-      description: "The Database Secret for username piwigoadmin",
+      value: `https://${parent.region}.console.aws.amazon.com/secretsmanager/secret?name=${dbCluster.secret?.secretName}&region=${parent.region}`,
+      description: "The Database Secret in SecretsManager",
       exportName: "dbSecret",
+    });
+
+    new CfnOutput(this, "databaseDns", {
+      value: dbCluster.clusterEndpoint.hostname,
+      description: "The Database hostname",
+      exportName: "dbHost",
     });
   }
 }
