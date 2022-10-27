@@ -23,5 +23,5 @@ let loadBalancer = new LoadBalancer(piwigoStack, 'piwigo-loadbalancer', {
   TargetInstance: compute.WebServer,
   Vpc: networkStack.DefaultVpc
 });
-let db = new DatabaseStack(piwigoStack,'piwigo-databaseStack',networkStack.DefaultVpc,securityGroupStack.DatabaseSecurityGroup);
+let db = new DatabaseStack(piwigoStack,'piwigo-databaseStack',networkStack.DefaultVpc,securityGroupStack.DatabaseSecurityGroup, piwigoStack.IsDbServerless);
 
