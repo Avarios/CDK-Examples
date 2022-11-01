@@ -1,12 +1,17 @@
-import { Stack, StackProps, Construct, CfnParameter } from '@aws-cdk/core';
+import { Stack, StackProps, CfnParameter, Tags } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class PiwigoInfraStack extends Stack {
 
   public SshKeyName: string;
   public CertificateArn: string;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+  constructor(construct: Construct, id: string, props?: StackProps) {
+    super(construct, id, props);
+
+    Tags.of(this).add('stack', this.stackName, {
+      applyToLaunchedInstances: true
+    })
 
     this.SshKeyName = new CfnParameter(this, 'keyname', {
       type: "String",
@@ -17,6 +22,5 @@ export class PiwigoInfraStack extends Stack {
       type: "String",
       description: "Insert the ARN for the SSL Certificate Load Balancer"
     }).valueAsString;
-
   }
 }

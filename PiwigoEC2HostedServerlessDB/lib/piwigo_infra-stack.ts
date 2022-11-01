@@ -5,7 +5,6 @@ export class PiwigoInfraStack extends Stack {
 
   public SshKeyName: string;
   public CertificateArn: string;
-  public IsDbServerless:boolean;
 
   constructor(construct: Construct, id: string, props?: StackProps) {
     super(construct, id, props);
@@ -23,11 +22,5 @@ export class PiwigoInfraStack extends Stack {
       type: "String",
       description: "Insert the ARN for the SSL Certificate Load Balancer"
     }).valueAsString;
-
-    this.IsDbServerless = new CfnParameter(this, 'dbServerless', {
-      type: "Boolean",
-      description: "Insert the ARN for the SSL Certificate Load Balancer"
-    }).valueAsString == 'true';
-
   }
 }

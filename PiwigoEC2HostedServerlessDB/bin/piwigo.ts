@@ -4,7 +4,7 @@ import { Compute } from '../lib/compute';
 import { LoadBalancer } from '../lib/loadBalancer';
 import { NetworkStack } from '../lib/networkStack';
 import { SecurityGroups } from '../lib/securityGroups';
-import { DatabaseStack } from '../lib/databaseStack';
+import { DatabaseStack } from '../lib/serverlessDatabase';
 
 
 const app = new App();
@@ -23,5 +23,5 @@ let loadBalancer = new LoadBalancer(piwigoStack, 'piwigo-loadbalancer', {
   TargetInstance: compute.WebServer,
   Vpc: networkStack.DefaultVpc
 });
-let db = new DatabaseStack(piwigoStack,'piwigo-databaseStack',networkStack.DefaultVpc,securityGroupStack.DatabaseSecurityGroup, piwigoStack.IsDbServerless);
+let db = new DatabaseStack(piwigoStack,'piwigo-databaseStack',networkStack.DefaultVpc,securityGroupStack.DatabaseSecurityGroup);
 

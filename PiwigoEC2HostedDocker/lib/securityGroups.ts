@@ -21,11 +21,12 @@ export class SecurityGroups extends Construct {
             allowAllOutbound: true
         });
         this.InstanceSecurityGroup.addIngressRule(this.AlbSecurityGroup, Port.tcp(80), 'Allow Port 80 from ALB to Instance');
+
         this.DatabaseSecurityGroup = new SecurityGroup(parent,'db-securityGroup', {
             vpc,
-            allowAllOutbound: false
+            allowAllOutbound: true
         })
         this.DatabaseSecurityGroup.addIngressRule(this.InstanceSecurityGroup,Port.tcp(3306), 'Allow EC2 to Database');
-        this.DatabaseSecurityGroup.addEgressRule(this.InstanceSecurityGroup,Port.tcp(3306), 'Allow Database to EC2');
+        this.InstanceSecurityGroup.addEgressRule(this.DatabaseSecurityGroup,Port.tcp(3306), 'Allow EC2 to Aurora');
     }
 }
