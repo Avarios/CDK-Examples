@@ -13,3 +13,15 @@ services:
     ports:
       - 80:80
     restart: always
+    links:
+      - "db:db"
+  db:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=dasdwqdsv43r32c
+    volumes:
+      - /home/ec2-user/mysql:/var/lib/mysql
+    ports:
+      - 80:80
+    restart: always  
