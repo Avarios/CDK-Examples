@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3.1"
 services:
   piwigo:
     image: lscr.io/linuxserver/piwigo:latest
@@ -13,15 +13,20 @@ services:
     ports:
       - 80:80
     restart: always
-    links:
-      - "db:db"
-  db:
+    networks:
+      - piwigo
+  piwigodb:
     image: mysql:latest
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=dasdwqdsv43r32c
+      - MYSQL_DATABASE=piwigo
+      - MYSQL_USER=piwigo_admin
+      - MYSQL_PASSWORD=jnawdniawefiuj3209n
     volumes:
       - /home/ec2-user/mysql:/var/lib/mysql
-    ports:
-      - 80:80
     restart: always  
+    networks:
+      - piwigo
+networks:
+  piwigo:
