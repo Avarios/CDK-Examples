@@ -1,6 +1,5 @@
-export PATH=/usr/local/bin:$PATH;
-yum -y update
-yum -y install docker
+﻿yum update -y
+yum install docker -y
 curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod -v +x /usr/local/bin/docker-compose
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
