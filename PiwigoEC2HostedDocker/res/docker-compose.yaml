@@ -19,10 +19,10 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=dasdwqdsv43r32c
+      - MYSQL_ROOT_PASSWORD=MYSQLROOTPASSWORDHERE
       - MYSQL_DATABASE=piwigo
-      - MYSQL_USER=piwigo_admin
-      - MYSQL_PASSWORD=jnawdniawefiuj3209n
+      - MYSQL_USER=YOURUSERHERE
+      - MYSQL_PASSWORD=MYSQLUSERNAMEHERE
     volumes:
       - /home/ec2-user/mysql:/var/lib/mysql
     restart: always  
