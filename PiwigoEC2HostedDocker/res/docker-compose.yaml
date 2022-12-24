@@ -17,12 +17,14 @@ services:
       - piwigo
   piwigodb:
     image: mysql:latest
+    depends_on:
+      - piwigo
     container_name: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=MYSQLROOTPASSWORDHERE
-      - MYSQL_DATABASE=piwigo
-      - MYSQL_USER=YOURUSERHERE
-      - MYSQL_PASSWORD=MYSQLUSERNAMEHERE
+      - MYSQL_ROOT_PASSWORD=kjnjwadnjkasd98q3nmkj
+      - MYSQL_DATABASE=piwigodb
+      - MYSQL_USER=piwigo
+      - MYSQL_PASSWORD=njhksadjhnsajdhn3zn
     volumes:
       - /home/ec2-user/mysql:/var/lib/mysql
     restart: always  

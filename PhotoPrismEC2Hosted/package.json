@@ -1,8 +1,8 @@
 {
-  "name": "piwigodockersimple",
+  "name": "prismdockerec2",
   "version": "0.1.0",
   "bin": {
-    "piwigo_infra": "bin/piwigo.js"
+    "prism_infra": "bin/prism.js"
   },
   "scripts": {
     "build": "tsc",

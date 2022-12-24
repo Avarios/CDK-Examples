@@ -67,7 +67,7 @@ export class Compute extends Construct {
       "chown root:docker /usr/local/bin/docker-compose",
       "systemctl enable docker.service",
       "systemctl start docker.service",
-      "wget https://raw.githubusercontent.com/Avarios/CDK-Examples/main/PiwigoEC2HostedDocker/res/docker-compose.yaml -P /home/ec2-user/",
+      "wget https://raw.githubusercontent.com/Avarios/CDK-Examples/main/PhotoPrismEC2Hosted/res/docker-compose.yaml -P /home/ec2-user/",
       "mkdir /home/ec2-user/prism",
       "chmod 777 /home/ec2-user/prism",
       "docker-compose -f /home/ec2-user/docker-compose.yaml up -d",
