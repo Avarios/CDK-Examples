@@ -67,7 +67,7 @@ export class Compute extends Construct {
       "chown root:docker /usr/local/bin/docker-compose",
       "systemctl enable docker.service",
       "systemctl start docker.service",
-      "wget https://raw.githubusercontent.com/Avarios/CDK-Examples/main/lycheeEC2HostedDocker/res/docker-compose.yaml -P /home/ec2-user/",
+      "wget https://raw.githubusercontent.com/Avarios/CDK-Examples/main/lychee_docker/res/docker-compose.yaml -P /home/ec2-user/",
       "mkdir /home/ec2-user/lychee",
       "chmod 777 /home/ec2-user/lychee",
       "docker-compose -f /home/ec2-user/docker-compose.yaml up -d",
