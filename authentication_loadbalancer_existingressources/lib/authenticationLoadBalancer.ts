@@ -1,27 +1,28 @@
-import * as cdk from '@aws-cdk/core';
-import { Vpc, SecurityGroup, Instance } from '@aws-cdk/aws-ec2';
-import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType, UnauthenticatedAction } from '@aws-cdk/aws-elasticloadbalancingv2';
-import { InstanceTarget } from '@aws-cdk/aws-elasticloadbalancingv2-targets';
-import { AuthenticateCognitoAction } from '@aws-cdk/aws-elasticloadbalancingv2-actions';
+import { SecurityGroup, IVpc, Vpc } from 'aws-cdk-lib/aws-ec2';
+import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, ListenerAction, Protocol, TargetType, UnauthenticatedAction } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { InstanceIdTarget } from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
+import { AuthenticateCognitoAction } from 'aws-cdk-lib/aws-elasticloadbalancingv2-actions';
 import {
     AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider,
     UserPoolDomain, UserPoolEmail
-} from '@aws-cdk/aws-cognito';
-import { CfnOutput, RemovalPolicy } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-cognito';
+import { CfnOutput, RemovalPolicy, Duration } from 'aws-cdk-lib/core';
+import { Construct } from 'constructs';
+import { config } from './parameters';
 
 export interface LoadBalancerProps {
-    Vpc: Vpc,
     LoadBalancerSecurityGroup: SecurityGroup
-    ReplyMailAdress: string,
     certificateArn: string,
-    TargetInstance: Instance,
+    TargetInstanceId: string,
+    TargetInstancePort: number,
+    Vpc:IVpc
 }
 
-export class AuthenticationLoadBalancer extends cdk.Construct {
+export class AuthenticationLoadBalancer extends Construct {
 
     private AlbDnsName: string
 
-    constructor(scope: cdk.Construct, id: string, props: LoadBalancerProps) {
+    constructor(scope: Construct, id: string, props: LoadBalancerProps) {
         super(scope, id);
         let alb = new ApplicationLoadBalancer(this, 'webAppAlb', {
             vpc: props.Vpc,
@@ -30,20 +31,22 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
         });
 
         this.AlbDnsName = alb.loadBalancerDnsName;
-
+        
         let targetGroup = new ApplicationTargetGroup(scope, 'webappTarget', {
             targetType: TargetType.INSTANCE,
             healthCheck: {
                 enabled: true,
                 path: '/',
-                interval: cdk.Duration.seconds(20),
+                interval: Duration.seconds(60),
                 protocol: Protocol.HTTP
             },
             port: 80,
             protocol: ApplicationProtocol.HTTP,
-            vpc: props.Vpc,
-            targets: [new InstanceTarget(props.TargetInstance)]
+            vpc:props.Vpc
         });
+
+        let instanceTarget = new InstanceIdTarget(props.TargetInstanceId, props.TargetInstancePort);
+        instanceTarget.attachToApplicationTargetGroup(targetGroup);
 
         let cognitoUserPool = new UserPool(this, 'authWebUserPool', {
             accountRecovery: AccountRecovery.EMAIL_ONLY,
@@ -52,11 +55,6 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
             selfSignUpEnabled: true,
             standardAttributes: {
                 email: { required: true }
-            },
-            // Only used for demo, it depends on your use case if you want to auto approve users
-            autoVerify: {
-                email: true,
-                phone: true
             },
             removalPolicy: RemovalPolicy.DESTROY
         });
@@ -79,7 +77,7 @@ export class AuthenticationLoadBalancer extends cdk.Construct {
                 }
             },
             userPoolClientName: 'authBackendUserpoolClient',
-            disableOAuth: false
+            disableOAuth: false,
         });
 
         let cognitoUserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
