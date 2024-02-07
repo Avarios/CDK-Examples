@@ -3,7 +3,7 @@ import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, L
 import { InstanceIdTarget } from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
 import { AuthenticateCognitoAction } from 'aws-cdk-lib/aws-elasticloadbalancingv2-actions';
 import {
-    AccountRecovery, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider,
+    AccountRecovery, CfnUserPoolClient, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider,
     UserPoolDomain, UserPoolEmail
 } from 'aws-cdk-lib/aws-cognito';
 import { CfnOutput, RemovalPolicy, Duration } from 'aws-cdk-lib/core';
@@ -24,7 +24,8 @@ export class AuthenticationLoadBalancer extends Construct {
 
     constructor(scope: Construct, id: string, props: LoadBalancerProps) {
         super(scope, id);
-        let alb = new ApplicationLoadBalancer(this, 'webAppAlb', {
+
+        let alb = new ApplicationLoadBalancer(this, 'webapplb', {
             vpc: props.Vpc,
             securityGroup: props.LoadBalancerSecurityGroup,
             internetFacing: true
@@ -44,9 +45,10 @@ export class AuthenticationLoadBalancer extends Construct {
             protocol: ApplicationProtocol.HTTP,
             vpc:props.Vpc
         });
-
+        
         let instanceTarget = new InstanceIdTarget(props.TargetInstanceId, props.TargetInstancePort);
         instanceTarget.attachToApplicationTargetGroup(targetGroup);
+        targetGroup.addTarget(instanceTarget);
 
         let cognitoUserPool = new UserPool(this, 'authWebUserPool', {
             accountRecovery: AccountRecovery.EMAIL_ONLY,
@@ -59,62 +61,82 @@ export class AuthenticationLoadBalancer extends Construct {
             removalPolicy: RemovalPolicy.DESTROY
         });
 
-        let callBackURL = `https://${this.AlbDnsName}/oauth2/idpresponse/`;
-        let redirectURI = `https://${this.AlbDnsName}/`;
-
-        let cognitoUserPoolClient = new UserPoolClient(this, 'authBackendClient', {
-            userPool: cognitoUserPool,
-            supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
-            generateSecret: true,
-            authFlows: {
-                userPassword: true
-            },
-            oAuth: {
-                callbackUrls: [callBackURL, redirectURI],
-                scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
-                flows: {
-                    authorizationCodeGrant: true
-                }
-            },
-            userPoolClientName: 'authBackendUserpoolClient',
-            disableOAuth: false,
-        });
-
         let cognitoUserPoolDomain = new UserPoolDomain(this, 'authUserPoolDomain', {
             userPool: cognitoUserPool,
             cognitoDomain: {
-                domainPrefix: 'pwarmuth-auth-test',
-
+                domainPrefix: config.cognitoDomanPrefix,
             },
         });
 
-        let authUrl = cognitoUserPoolDomain.signInUrl(cognitoUserPoolClient, {
-            redirectUri: redirectURI
+        
+        /* let redirects = [
+            `https://${this.AlbDnsName}`,
+            `https://${this.AlbDnsName}/oauth2/idpresponse`,
+            `https://${this.AlbDnsName}/oauth2/idpresponse/`,
+            `https://${this.AlbDnsName}/`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/saml2/idpresponse/`.toLowerCase(),
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/saml2/idpresponse`.toLowerCase(),
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/saml2/idpresponse/`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/saml2/idpresponse`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/oauth2/idpresponse/`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/oauth2/idpresponse`
+        ] */
+
+        let redirects = [
+            `https://${this.AlbDnsName}/oauth2/idpresponse`,
+            `https://${this.AlbDnsName}`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/oauth2/idpresponse`,
+            `https://${config.cognitoDomanPrefix}.auth.${config.region}.amazoncognito.com/saml2/idpresponse`
+        ]
+
+
+        let cognitoClient = cognitoUserPool.addClient('albclinet',{
+            supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
+            generateSecret: true,
+            oAuth: {
+                callbackUrls: redirects,
+                scopes: [OAuthScope.OPENID],
+                flows: {
+                    authorizationCodeGrant:true,
+                }
+            },
+            userPoolClientName: 'authBackendUserpoolClient'
         })
 
+        let signInUrl = cognitoUserPoolDomain.signInUrl(cognitoClient,{
+            redirectUri: `https://${this.AlbDnsName}`
+        })
 
-        alb.addListener('instanceListener', {
+        let listener = alb.addListener('instanceListener', {
             protocol: ApplicationProtocol.HTTPS,
             open: true,
             certificates: [{ certificateArn: props.certificateArn }],
             defaultAction: new AuthenticateCognitoAction({
                 onUnauthenticatedRequest: UnauthenticatedAction.AUTHENTICATE,
                 userPool: cognitoUserPool,
-                userPoolClient: cognitoUserPoolClient,
+                userPoolClient: cognitoClient,
                 userPoolDomain: cognitoUserPoolDomain,
-                next: ListenerAction.forward([targetGroup])
-            })
+                next: ListenerAction.forward([targetGroup]),
+                scope: `${OAuthScope.OPENID.scopeName} `
+            }),
         });
 
-
-        let cognitoAuthUrl = new CfnOutput(this, 'authUrl', {
-            value: authUrl,
-            description: 'The Signin URL'
-        });
+        const cfnClient = cognitoClient.node.defaultChild as CfnUserPoolClient;
+        cfnClient.addPropertyOverride('RefreshTokenValidity', 1);
+        cfnClient.addPropertyOverride('SupportedIdentityProviders', ['COGNITO']);
+        cfnClient.allowedOAuthFlowsUserPoolClient = true;
+        
 
         let dnsLb = new CfnOutput(this, 'LoadBalancer DNS', {
-            value: this.AlbDnsName,
+            value: "https://" +  this.AlbDnsName,
             description: 'The DNS URL for the ALB'
+        });
+
+        new CfnOutput(this, 'SignInUrl', {
+            value: signInUrl,
+            description: 'Cognito Signin Url'
         });
 
     }
